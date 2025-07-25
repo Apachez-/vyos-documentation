@@ -47,7 +47,7 @@ Server Configuration
 .. code-block:: none
 
   set vpn openconnect authentication local-users username <user> password <pass>
-  set vpn openconnect authentication mode <local password|radius>
+  set vpn openconnect authentication mode <local password|radius|certificate>
   set vpn openconnect network-settings client-ip-settings subnet <subnet>
   set vpn openconnect network-settings name-server <address>
   set vpn openconnect network-settings name-server <address>
@@ -77,6 +77,19 @@ For generating an OTP key in VyOS, you can use the CLI command
 .. code-block:: none
 
   generate openconnect username <user> otp-key hotp-time
+
+User Certificate Authentication
+===============================
+
+You can configure users to be authenticated by certificate by setting the authentication mode to certificate, and defining what field (by OID) in the certificate will be used to identify the username. Two pre-defined shortcuts for Common Name (OID 2.5.4.3) and User ID (OID 0.9.2342.19200300.100.1.1) have been provide as cn or uid. Otherwise a specific OID value must be provided.
+
+The user's certificate must be signed by the certificate authority defined in the configuration for it to be validated for authentication.
+
+.. code-block:: none
+
+  set vpn openconnect authentication mode certificate
+  set vpn openconnect authentication mode certificate user-identifier-field cn
+  set vpn openconnect ssl ca-certificate <cert>
 
 ************
 Verification
