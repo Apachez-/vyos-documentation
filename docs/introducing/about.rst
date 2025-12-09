@@ -4,24 +4,20 @@
 About
 #####
 
-VyOS is an open source network operating system based on Debian GNU/Linux.
+VyOS is an open-source network operating system that provides a single unified 
+CLI and API to manage routing protocols, firewall and NAT, QoS, load balancing, 
+DHCP and DNS servers, and many other features.
 
-VyOS provides a free routing platform that competes directly with other
-commercially available solutions from well known network providers. Because
-VyOS runs on standard amd64, i586 and ARM systems, it is able to be used
-as a router and firewall platform for cloud deployments.
+VyOS runs on a wide variety of commodity hardware, virtual machines, and 
+multiple cloud environments.
 
-We use multiple live versions of our manual, hosted thankfully by
-https://readthedocs.org. We will provide one version of the manual for every
-VyOS major version starting with VyOS 1.2 which will receive Long-term support
-(LTS).
+We provide a dedicated user guide for each major 
+VyOS release that receives long-term support (LTS). We maintain multiple user 
+guide versions, all hosted at https://docs.vyos.io. 
+To switch between versions, select the appropriate version in the bottom-right 
+corner.
 
-The manual version is selected/specified by it's Git branch name. You can
-switch between versions of the documentation by selecting the appropriate
-branch on the bottom left corner.
-
-VyOS CLI syntax may change between major (and sometimes minor) versions. Please
-always refer to the documentation matching your current, running installation.
-If a change in the CLI is required, VyOS will ship a so called migration script
-which will take care of adjusting the syntax. No action needs to be taken by
-you.
+VyOS CLI syntax may vary between major and sometimes minor releases. Always 
+refer to the documentation matching your current running installation. If 
+a change in the CLI is required, VyOS provides a migration script to handle 
+the syntax adjustments. No user action is required.
