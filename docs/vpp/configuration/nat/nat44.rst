@@ -32,6 +32,30 @@ To configure dynamic NAT, you need to define a pool of public IP addresses that 
 
 Static rules are more suitable for scenarios where you need to provide consistent and predictable mappings between private and public IP addresses, also they are the only way to configure DNAT.
 
+NAT Rule Processing and Traffic Flow
+------------------------------------
+
+This section explains how different combinations of NAT rules affect traffic handling on a router. There are three possible combinations of NAT rules configurations:
+
+1. **Dynamic NAT Only**
+
+   * **All** traffic received on the "in" interface is processed by dynamic NAT rules without exceptions.
+
+2. **Dynamic + Static NAT**
+
+   * **All** traffic received on the "in" interface is first matched against static NAT rules.
+   * If no match is found, it is then processed by dynamic NAT rules.
+
+3. **Static NAT Only**
+
+   * **All** traffic on the "in" interface is checked against static NAT rules.
+   * If no match is found, the traffic is routed **without NAT**.
+
+.. important::
+
+   * If **dynamic NAT rules** are present, **all** traffic received on "in" interfaces is subject to NAT processing.
+   * If **only static NAT rules** are configured, traffic that does not match any static rule is routed unchanged.
+
 Interfaces Configuration
 ========================
 
@@ -553,24 +577,6 @@ This setting helps prevent memory exhaustion and ensures predictable performance
 
    # Increase session limit for high-capacity deployment
    set vpp settings nat44 session-limit 100000
-
-Forwarding Behavior
--------------------
-
-By default, VyOS NAT44 forwards packets that don't match any NAT rules according to the routing table. This behavior can be controlled:
-
-.. cfgcmd:: set vpp settings nat44 no-forwarding
-
-   Disable forwarding of packets that don't match existing NAT translations. When enabled, only packets that match static or dynamic NAT rules will be processed; all other traffic will be dropped.
-
-.. important::
-
-   This is a significant difference from traditional NAT solutions. By default, VyOS NAT44 allows non-NAT traffic to be forwarded normally. Using ``no-forwarding`` creates a pure NAT-only device that drops any traffic not covered by NAT rules.
-
-**Use cases for no-forwarding:**
-
-* **Pure NAT gateway**: When the router should only handle NAT traffic and drop everything else
-* **Security isolation**: Preventing any non-NAT traffic from traversing the device
 
 Worker Assignment
 -----------------
