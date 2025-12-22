@@ -45,7 +45,7 @@ Configuration
   Specify IPv4/IPv6 listen address of SSH server. Multiple addresses can be
   defined.
 
-.. cfgcmd:: set service ssh ciphers <cipher>
+.. cfgcmd:: set service ssh cipher <cipher>
 
   Define allowed ciphers used for the SSH connection. A number of allowed
   ciphers can be specified, use multiple occurrences to allow multiple ciphers.
