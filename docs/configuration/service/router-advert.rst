@@ -47,6 +47,7 @@ Configuration
    "DNSSL", "dnssl", "DNS search list to advertise"
    "Name Server", "name-server", "Advertise DNS server per https://tools.ietf.org/html/rfc6106"
    "Auto Ignore Prefix", "auto-ignore", "Exclude a prefix from being advertised when the wildcard ::/64 prefix is used"
+   "Captive Portal", "captive-portal", "Advertise a URL pointing to an RFC 8908-compliant API to tell hosts that they are behind a captive portal"
 
 .. start_vyoslinter
 
