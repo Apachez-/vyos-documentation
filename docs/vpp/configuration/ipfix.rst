@@ -46,5 +46,6 @@ Example Configuration
     set vpp ipfix flowprobe-record 'l3'
     set vpp ipfix flowprobe-record 'l4'
     set vpp ipfix interface eth0
-    set vpp ipfix interface eth1 direction 'both' flow-variant 'ipv4'
+    set vpp ipfix interface eth1 direction 'both'
+    set vpp ipfix interface eth1 flow-variant 'ipv4'
 
