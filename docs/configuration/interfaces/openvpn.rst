@@ -57,10 +57,36 @@ Configuration
 
    Administratively disable interface
 
-.. cfgcmd:: set interfaces openvpn <interface> encryption <cipher | data-ciphers> < 3des | aes128 | aes128gcm | none | ...> 
- 
-   * ``cipher`` - Standard Data Encryption Algorithm
-   * ``data-ciphers`` - Cipher negotiation list for use in server or client mode
+.. cfgcmd:: set interfaces openvpn <interface> encryption cipher < 3des | aes128 | aes128gcm | aes192 | aes192gcm | aes256 | aes256gcm | none >
+
+   Configure a single static encryption cipher for OpenVPN tunnels.
+
+   The ``cipher`` option directly maps to OpenVPN's ``--cipher`` directive and specifies
+   one symmetric encryption algorithm used for both control and data channels.
+   Historically, this was the default encryption method in all OpenVPN modes.
+   As of newer OpenVPN versions, this directive is considered **legacy** and
+   may only be used in compatibility scenarios.
+
+.. cfgcmd:: set interfaces openvpn <interface> encryption data-ciphers < 3des | aes128 | aes128gcm | aes192 | aes192gcm | aes256 | aes256gcm | none >
+
+   Configure a prioritized list of negotiated ciphers for use
+   with OpenVPN in *client* or *server* mode.
+
+   The ``data-ciphers`` option represents a list of supported encryption algorithms.
+   It corresponds to OpenVPN's ``--data-ciphers`` directive and enables **cipher negotiation**,
+   where both peers automatically agree on a mutually supported cipher during session startup.
+
+   .. note:: This option is not compatible with ``site-to-site`` mode.
+
+.. cfgcmd:: set interfaces openvpn <interface> encryption data-ciphers-fallback < 3des | aes128 | aes128gcm | aes192 | aes192gcm | aes256 | aes256gcm | none >
+
+   Define the fallback cipher for OpenVPN *site-to-site* tunnels.
+
+   The ``data-ciphers-fallback`` directive maps to OpenVPN's ``--data-ciphers-fallback`` option.
+   It specifies a single cipher to use when cipher negotiation is **not supported**.
+
+   .. note:: This option ensures consistent encryption setup between two static peers
+      that lack cipher negotiation capability.
 
 .. cfgcmd:: set interfaces openvpn <interface> hash <md5 | sha1 | sha256 | ...> 
 
