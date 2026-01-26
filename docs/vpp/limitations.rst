@@ -19,7 +19,7 @@ While VPP Dataplane offers significant performance advantages, there are some li
 
 * **NIC and Drivers Compatibility**
 
-  Some NICs may work with DPDK drivers but not with XDP, or vice versa.
+  VyOS currently supports only DPDK drivers for network interfaces. Not all NICs are compatible with DPDK drivers.
 
 * **Data Path Limitations**
 
