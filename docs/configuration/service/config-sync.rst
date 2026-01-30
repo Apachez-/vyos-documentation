@@ -70,6 +70,7 @@ Configure the HTTP API service on Router B
     set service https listen-address '10.0.20.112'
     set service https port '8443'
     set service https api keys id KID key 'foo'
+    set service https api rest
 
 Configure the config-sync service on Router A
 
