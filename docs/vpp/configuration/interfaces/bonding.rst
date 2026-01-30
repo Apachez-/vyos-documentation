@@ -141,7 +141,7 @@ For detailed information about kernel interface integration, see :doc:`kernel`.
 
 .. code-block:: none
 
-   set vpp interfaces bonding bond0 kernel-interface vpptap0
+   set vpp interfaces bonding bond0 kernel-interface vpptun0
 
 .. important::
 
@@ -169,10 +169,10 @@ Here's a complete example configuring a bonding interface with LACP:
    set vpp interfaces bonding bond0 member interface eth1
    
    # Create kernel interface for OS integration
-   set vpp interfaces bonding bond0 kernel-interface vpptap0
+   set vpp interfaces bonding bond0 kernel-interface vpptun0
    
    # Configure IP on kernel interface
-   set vpp kernel-interfaces vpptap0 address 192.168.1.10/24
+   set vpp kernel-interfaces vpptun0 address 192.168.1.10/24
 
 Best Practices
 --------------
