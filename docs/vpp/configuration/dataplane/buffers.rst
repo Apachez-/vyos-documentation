@@ -34,7 +34,7 @@ Usually it needs to be tuned if:
 - there are a lot of queues in NICs
 - there are big descriptors size configured for NICs
 
-The value should be set responsibly, overprovisioning can lead to issues with NICs configured with XDP driver.
+The value should be set responsibly.
 
 .. cfgcmd:: set vpp settings buffers buffers-per-numa <value>
 
