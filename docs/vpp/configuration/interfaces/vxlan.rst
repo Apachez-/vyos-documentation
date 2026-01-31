@@ -100,8 +100,8 @@ VXLAN with Kernel Interface
    set vpp interfaces vxlan vxlan3 vni 3000
    set vpp interfaces vxlan vxlan3 remote 203.0.113.30
    set vpp interfaces vxlan vxlan3 source-address 192.168.1.1
-   set vpp interfaces vxlan vxlan3 kernel-interface vpptun3
-   set vpp kernel-interfaces vpptun3 address 10.0.3.1/24
+   set vpp interfaces vxlan vxlan3 kernel-interface vpptap3
+   set vpp kernel-interfaces vpptap3 address 10.0.3.1/24
 
 Bridge Integration
 ------------------
