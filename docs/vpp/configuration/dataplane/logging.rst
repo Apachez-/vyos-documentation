@@ -17,7 +17,7 @@ VPP stores logs in two places:
 
 Logging detalization can be configured via the next command:
 
-.. cfgcmd:: set vpp settings logging default-log-level <level>
+.. cfgcmd:: set vpp settings logging default-level <level>
 
 Where ``<level>`` can be one of the following:
 
