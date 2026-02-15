@@ -16,7 +16,7 @@ To mitigate this, VPP provides a configurable polling delay that allows to reduc
 
 You can configure the polling delay using the following command in the VyOS CLI:
 
-.. cfgcmd:: set vpp settings unix poll-sleep-usec <delay>
+.. cfgcmd:: set vpp settings poll-sleep-usec <delay>
 
 Sets the polling delay in microseconds. A value of 0 means no delay (default), while higher values introduce a delay between polling cycles.
 
