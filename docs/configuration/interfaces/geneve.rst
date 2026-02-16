@@ -1,28 +1,31 @@
-:lastproofread: 2023-01-20
+:lastproofread: 2026-02-02
 
 .. _geneve-interface:
 
 ######
-GENEVE
+Geneve
 ######
 
-:abbr:`GENEVE (Generic Network Virtualization Encapsulation)` supports all of
-the capabilities of :abbr:`VXLAN (Virtual Extensible LAN)`, :abbr:`NVGRE
-(Network Virtualization using Generic Routing Encapsulation)`, and :abbr:`STT
-(Stateless Transport Tunneling)` and was designed to overcome their perceived
-limitations. Many believe GENEVE could eventually replace these earlier formats
-entirely.
+:abbr:`Geneve (Generic Network Virtualization Encapsulation)` interfaces 
+operate as virtual network ports. Administrators can apply standard network 
+configurations on them, such as IP addressing, bridging, or firewall rules, 
+just as they would on physical Ethernet ports.
 
-GENEVE is designed to support network virtualization use cases, where tunnels
-are typically established to act as a backplane between the virtual switches
-residing in hypervisors, physical switches, or middleboxes or other appliances.
-An arbitrary IP network can be used as an underlay through Clos networks - A
-technique for composing network fabrics larger than a single switch while
-maintaining non-blocking bandwidth across connection points. ECMP is used to
-divide traffic across the multiple links and switches that constitute the
-fabric. Sometimes termed "leaf and spine" or "fat tree" topologies.
+The Geneve protocol encapsulates Layer 2 Ethernet frames originating from 
+endpoints such as virtual machines, containers, or physical servers inside UDP 
+packets. It unifies the features of earlier encapsulation protocols, including 
+VXLAN, NVGRE, and STT, and addresses their limitations, such as fixed header 
+structures and a lack of metadata support. Because of its extensibility, Geneve 
+may eventually replace those older protocols.
 
-Geneve Header:
+Geneve tunnels are used to connect virtual switches residing within 
+hypervisors, physical switches, middleboxes, and other network appliances.
+
+Geneve tunnels operate over any standard IP network. In larger deployments, 
+the underlying network (underlay) is often built using a **Clos** topology, 
+also known as a *leaf-and-spine* or *fat-tree* topology.
+
+Geneve header:
 
 .. code-block:: none
 
@@ -69,24 +72,29 @@ Common interface configuration
   :var0: geneve
   :var1: gnv0
 
-GENEVE options
+Geneve options
 ==============
 
 .. cfgcmd:: set interfaces geneve gnv0 remote <address>
 
-   Configure GENEVE tunnel far end/remote tunnel endpoint.
+   Configure the remote endpoint IP address for the Geneve tunnel.
 
 .. cfgcmd:: set interfaces geneve gnv0 vni <vni>
 
-   :abbr:`VNI (Virtual Network Identifier)` is an identifier for a unique
-   element of a virtual network.  In many situations this may represent an L2
-   segment, however, the control plane defines the forwarding semantics of
-   decapsulated packets. The VNI MAY be used as part of ECMP forwarding
-   decisions or MAY be used as a mechanism to distinguish between overlapping
-   address spaces contained in the encapsulated packet when load balancing
-   across CPUs.
+   **Configure** :abbr:`VNI (Virtual Network Identifier)` **for the Geneve 
+   interface.**
+
+   The VNI is a virtual network identifier. It allows multiple virtual networks to 
+   share the same physical infrastructure and remain isolated.
+
+   The VNI is also used to distribute traffic after it leaves the tunnel, for 
+   example, to map packets with overlapping IP addresses to specific routing 
+   tables.
 
 .. cfgcmd:: set interfaces gnv0 <interface> port <port>
 
-  Configure port number of remote GENEVE endpoint.
+   **Configure the destination UDP port for the remote Geneve tunnel endpoint.**
+
+   Ensure the remote peer is configured to listen on this specific port.
+
 
