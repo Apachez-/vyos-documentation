@@ -272,7 +272,7 @@ DNS module example:
 
 .. code-block:: none
 
-  set service monitoring prometheus blackbox-exporter modules dns name dns4 preferred-ip-protocol ip4
+  set service monitoring prometheus blackbox-exporter modules dns name dns4 preferred-ip-protocol ipv4
   set service monitoring prometheus blackbox-exporter modules dns name dns4 query-name vyos.io
   set service monitoring prometheus blackbox-exporter modules dns name dns4 query-type A
 
@@ -280,7 +280,7 @@ ICMP module example:
 
 .. code-block:: none
 
-  set service monitoring prometheus blackbox-exporter modules icmp name ping6 preferred-ip-protocol ip6
+  set service monitoring prometheus blackbox-exporter modules icmp name ping6 preferred-ip-protocol ipv6
   set service monitoring prometheus blackbox-exporter modules icmp name ping6 ip-protocol-fallback
   set service monitoring prometheus blackbox-exporter modules icmp name ping6 timeout 3
 
