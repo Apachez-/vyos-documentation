@@ -166,10 +166,10 @@ Firewall Configuration:
     # Input traffic: add rules needed for ipsec connection
     set firewall ipv4 input filter rule 10 action 'accept'
     set firewall ipv4 input filter rule 10 destination port '500,4500'
-    set firewall ipv4 input filter rule 10 inbound-interface interface-name 'eth0'
+    set firewall ipv4 input filter rule 10 inbound-interface name 'eth0'
     set firewall ipv4 input filter rule 10 protocol 'udp'
     set firewall ipv4 input filter rule 15 action 'accept'
-    set firewall ipv4 input filter rule 15 inbound-interface interface-name 'eth0'
+    set firewall ipv4 input filter rule 15 inbound-interface name 'eth0'
     set firewall ipv4 input filter rule 15 protocol 'esp'
 
     # Input traffic: accept ssh connection from trusted ips
