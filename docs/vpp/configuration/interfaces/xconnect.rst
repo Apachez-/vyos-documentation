@@ -26,11 +26,11 @@ Basic Configuration
 Creating an XConnect Interface
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. cfgcmd:: set vpp interfaces xconnect <xconN>
+.. cfgcmd:: set interfaces vpp xconnect <vppxconN>
 
-   Create an XConnect interface where ``<xconN>`` follows the naming convention xcon1, xcon2, etc.
+   Create an XConnect interface where ``<vppxconN>`` follows the naming convention vppxcon1, vppxcon2, etc.
 
-.. cfgcmd:: set vpp interfaces xconnect <xconN> member interface <interface-name>
+.. cfgcmd:: set interfaces vpp xconnect <vppxconN> member interface <interface-name>
 
    Add an interface as a member of the XConnect. Exactly two member interfaces must be configured to create bidirectional forwarding.
 
@@ -38,25 +38,18 @@ Creating an XConnect Interface
 
 .. code-block:: none
 
-   set vpp interfaces xconnect xcon1
-   set vpp interfaces xconnect xcon1 member interface eth0
-   set vpp interfaces xconnect xcon1 member interface eth1
+   set interfaces vpp xconnect vppxcon1
+   set interfaces vpp xconnect vppxcon1 member interface eth0
+   set interfaces vpp xconnect vppxcon1 member interface eth1
 
 This configuration creates transparent forwarding between eth0 and eth1, where any packet received on either interface is immediately forwarded to the other without any processing.
 
 Interface Configuration
 -----------------------
 
-Description and Administrative Control
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. cfgcmd:: set vpp interfaces xconnect <xconN> description <description>
+.. cfgcmd:: set interfaces vpp xconnect <vppxconN> description <description>
 
    Set a descriptive name for the XConnect interface.
-
-.. cfgcmd:: set vpp interfaces xconnect <xconN> disable
-
-   Administratively disable the XConnect interface.
 
 Configuration Examples
 ----------------------
@@ -67,10 +60,10 @@ Physical Interface XConnect
 .. code-block:: none
 
    # Connect two physical interfaces
-   set vpp interfaces xconnect xcon1
-   set vpp interfaces xconnect xcon1 description "Transparent wire between ports"
-   set vpp interfaces xconnect xcon1 member interface eth0
-   set vpp interfaces xconnect xcon1 member interface eth1
+   set interfaces vpp xconnect vppxcon1
+   set interfaces vpp xconnect vppxcon1 description "Transparent wire between ports"
+   set interfaces vpp xconnect vppxcon1 member interface eth0
+   set interfaces vpp xconnect vppxcon1 member interface eth1
 
 This creates a transparent wire between two physical ports, effectively making them function as a single cable.
 
@@ -80,10 +73,10 @@ Tunnel to Physical XConnect
 .. code-block:: none
 
    # Connect tunnel to physical interface
-   set vpp interfaces xconnect xcon2
-   set vpp interfaces xconnect xcon2 description "GRE tunnel to physical bridge"
-   set vpp interfaces xconnect xcon2 member interface gre1
-   set vpp interfaces xconnect xcon2 member interface eth2
+   set interfaces vpp xconnect vppxcon2
+   set interfaces vpp xconnect vppxcon2 description "GRE tunnel to physical bridge"
+   set interfaces vpp xconnect vppxcon2 member interface vppgre1
+   set interfaces vpp xconnect vppxcon2 member interface eth2
 
 This forwards all traffic from a GRE tunnel directly to a physical interface and vice versa.
 
@@ -93,9 +86,9 @@ Mixed Interface Types
 .. code-block:: none
 
    # Connect different interface types
-   set vpp interfaces xconnect xcon3
-   set vpp interfaces xconnect xcon3 description "VXLAN to bonding bridge"
-   set vpp interfaces xconnect xcon3 member interface vxlan1
-   set vpp interfaces xconnect xcon3 member interface bond0
+   set interfaces vpp xconnect vppxcon3
+   set interfaces vpp xconnect vppxcon3 description "VXLAN to bonding bridge"
+   set interfaces vpp xconnect vppxcon3 member interface vppvxlan1
+   set interfaces vpp xconnect vppxcon3 member interface vppbond0
 
 This demonstrates XConnect's flexibility in connecting various VPP interface types.
