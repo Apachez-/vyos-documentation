@@ -16,15 +16,15 @@ Basic Configuration
 Creating an IPIP Interface
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. cfgcmd:: set vpp interfaces ipip <ipipN>
+.. cfgcmd:: set interfaces vpp ipip <vppipipN>
 
-   Create an IPIP interface where ``<ipipN>`` follows the naming convention ipip1, ipip2, etc.
+   Create an IPIP interface where ``<vppipipN>`` follows the naming convention vppipip1, vppipip2, etc.
 
-.. cfgcmd:: set vpp interfaces ipip <ipipN> remote <address>
+.. cfgcmd:: set interfaces vpp ipip <vppipipN> remote <address>
 
    Set the tunnel remote endpoint address. Supports both IPv4 and IPv6 addresses.
 
-.. cfgcmd:: set vpp interfaces ipip <ipipN> source-address <address>
+.. cfgcmd:: set interfaces vpp ipip <vppipipN> source-address <address>
 
    Set the tunnel source address. Must match an address configured on the local system.
 
@@ -32,9 +32,9 @@ Creating an IPIP Interface
 
 .. code-block:: none
 
-   set vpp interfaces ipip ipip1
-   set vpp interfaces ipip ipip1 remote 203.0.113.2
-   set vpp interfaces ipip ipip1 source-address 192.168.1.1
+   set interfaces vpp ipip vppipip1
+   set interfaces vpp ipip vppipip1 remote 203.0.113.2
+   set interfaces vpp ipip vppipip1 source-address 192.168.1.1
 
 Interface Configuration
 -----------------------
@@ -42,22 +42,42 @@ Interface Configuration
 Description and Administrative Control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. cfgcmd:: set vpp interfaces ipip <ipipN> description <description>
+.. cfgcmd:: set interfaces vpp ipip <vppipipN> description <description>
 
    Set a descriptive name for the IPIP interface.
 
-.. cfgcmd:: set vpp interfaces ipip <ipipN> disable
+.. cfgcmd:: set interfaces vpp ipip <vppipipN> disable
 
    Administratively disable the IPIP interface.
 
 Kernel Interface Integration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. cfgcmd:: set vpp interfaces ipip <ipipN> kernel-interface <interface-name>
+Kernel interface is bounded to the VPP IPIP interface for management and application compatibility.
 
-   Bind a kernel interface to the IPIP tunnel for management and application compatibility.
+IP Address Configuration
+------------------------
 
-For detailed information about kernel interface integration, see :doc:`kernel`.
+.. cfgcmd:: set interfaces vpp ipip <vppipipN> address <ip-address/prefix>
+
+   Configure IPv4 or IPv6 addresses on the kernel interface. Multiple addresses can be assigned.
+
+**Examples:**
+
+.. code-block:: none
+
+   # IPv4 address
+   set interfaces vpp ipip vppipip0 address 192.168.1.10/24
+
+   # IPv6 address
+   set interfaces vpp ipip vppipip0 address 2001:db8::10/64
+
+MTU Configuration
+-----------------
+
+.. cfgcmd:: set interfaces vpp ipip <vppipipN> mtu <size>
+
+   Set the Maximum Transmission Unit (MTU) for the kernel interface. The MTU must be compatible with the connected VPP interface.
 
 Configuration Examples
 ----------------------
@@ -68,10 +88,10 @@ IPv4 IPIP Tunnel
 .. code-block:: none
 
    # Basic IPv4 IPIP tunnel
-   set vpp interfaces ipip ipip1
-   set vpp interfaces ipip ipip1 description "Site-to-site IPIP tunnel"
-   set vpp interfaces ipip ipip1 remote 203.0.113.10
-   set vpp interfaces ipip ipip1 source-address 192.168.1.1
+   set interfaces vpp ipip vppipip1
+   set interfaces vpp ipip vppipip1 description "Site-to-site IPIP tunnel"
+   set interfaces vpp ipip vppipip1 remote 203.0.113.10
+   set interfaces vpp ipip vppipip1 source-address 192.168.1.1
 
 IPv6 IPIP Tunnel
 ^^^^^^^^^^^^^^^^
@@ -79,9 +99,9 @@ IPv6 IPIP Tunnel
 .. code-block:: none
 
    # IPv6 endpoints
-   set vpp interfaces ipip ipip2
-   set vpp interfaces ipip ipip2 remote 2001:db8::2
-   set vpp interfaces ipip ipip2 source-address 2001:db8::1
+   set interfaces vpp ipip vppipip2
+   set interfaces vpp ipip vppipip2 remote 2001:db8::2
+   set interfaces vpp ipip vppipip2 source-address 2001:db8::1
 
 IPIP with Kernel Interface
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -89,8 +109,7 @@ IPIP with Kernel Interface
 .. code-block:: none
 
    # IPIP tunnel with management interface
-   set vpp interfaces ipip ipip3
-   set vpp interfaces ipip ipip3 remote 203.0.113.30
-   set vpp interfaces ipip ipip3 source-address 192.168.1.1
-   set vpp interfaces ipip ipip3 kernel-interface vpptun3
-   set vpp kernel-interfaces vpptun3 address 10.0.2.1/30
+   set interfaces vpp ipip vppipip3
+   set interfaces vpp ipip vppipip3 remote 203.0.113.30
+   set interfaces vpp ipip vppipip3 source-address 192.168.1.1
+   set interfaces vpp ipip vppipip3 address 10.0.2.1/30

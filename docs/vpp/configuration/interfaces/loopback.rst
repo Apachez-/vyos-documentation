@@ -16,15 +16,15 @@ Basic Configuration
 Creating a Loopback Interface
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. cfgcmd:: set vpp interfaces loopback <loN>
+.. cfgcmd:: set interfaces vpp loopback <vpploN>
 
-   Create a loopback interface where ``<loN>`` follows the naming convention lo1, lo2, etc.
+   Create a loopback interface where ``<vpploN>`` follows the naming convention vpplo1, vpplo2, etc.
 
 **Basic Example:**
 
 .. code-block:: none
 
-   set vpp interfaces loopback lo1
+   set interfaces vpp loopback vpplo1
 
 Interface Configuration
 -----------------------
@@ -32,22 +32,80 @@ Interface Configuration
 Description and Administrative Control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. cfgcmd:: set vpp interfaces loopback <loN> description <description>
+.. cfgcmd:: set interfaces vpp loopback <vpploN> description <description>
 
    Set a descriptive name for the loopback interface.
 
-.. cfgcmd:: set vpp interfaces loopback <loN> disable
+.. cfgcmd:: set interfaces vpp loopback <vpploN> disable
 
    Administratively disable the loopback interface.
 
 Kernel Interface Integration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. cfgcmd:: set vpp interfaces loopback <loN> kernel-interface <interface-name>
+Kernel interface is bounded to the VPP loopback interface for management and application compatibility.
 
-   Bind a kernel interface to the loopback interface for management and application compatibility.
+IP Address Configuration
+------------------------
 
-For detailed information about kernel interface integration, see :doc:`kernel`.
+.. cfgcmd:: set interfaces vpp loopback <vpploN> address <ip-address/prefix>
+
+   Configure IPv4 or IPv6 addresses on the kernel interface. Multiple addresses can be assigned.
+
+**Examples:**
+
+.. code-block:: none
+
+   # IPv4 address
+   set interfaces vpp loopback vpplo1 address 192.168.1.10/24
+
+   # IPv6 address
+   set interfaces vpp loopback vpplo1 address 2001:db8::10/64
+
+MTU Configuration
+-----------------
+
+.. cfgcmd:: set interfaces vpp loopback <vpploN> mtu <size>
+
+   Set the Maximum Transmission Unit (MTU) for the kernel interface. The MTU must be compatible with the connected VPP interface.
+
+VLAN Configuration
+------------------
+
+VPP kernel interfaces support VLAN (Virtual LAN) sub-interfaces for network segmentation.
+
+Creating VLAN Sub-interfaces
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. cfgcmd:: set interfaces vpp loopback <vpploN> vif <vlan-id>
+
+   Create a VLAN sub-interface with the specified VLAN ID (0-4094).
+
+VLAN Sub-interface Configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+VLAN sub-interfaces support the same configuration options as the parent interface:
+
+.. cfgcmd:: set interfaces vpp loopback <vpploN> vif <vlan-id> address <ip-address/prefix>
+
+.. cfgcmd:: set interfaces vpp loopback <vpploN> vif <vlan-id> description <description>
+
+.. cfgcmd:: set interfaces vpp loopback <vpploN> vif <vlan-id> disable
+
+.. cfgcmd:: set interfaces vpp loopback <vpploN> vif <vlan-id> mtu <size>
+
+**Examples:**
+
+.. code-block:: none
+
+   # Configure VLAN 100
+   set interfaces vpp loopback vpplo1 vif 100 address 192.168.100.1/24
+   set interfaces vpp loopback vpplo1 vif 100 description "Management VLAN"
+   set interfaces vpp loopback vpplo1 vif 100 mtu 1500
+
+   # Configure VLAN 200
+   set interfaces vpp loopback vpplo1 vif 200 address 192.168.200.1/24
+   set interfaces vpp loopback vpplo1 vif 200 description "Guest VLAN"
 
 Configuration Examples
 ----------------------
@@ -58,8 +116,8 @@ Basic Loopback Interface
 .. code-block:: none
 
    # Create simple loopback
-   set vpp interfaces loopback lo1
-   set vpp interfaces loopback lo1 description "Router ID interface"
+   set interfaces vpp loopback vpplo1
+   set interfaces vpp loopback vpplo1 description "Router ID interface"
 
 Loopback with Kernel Interface
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -67,10 +125,9 @@ Loopback with Kernel Interface
 .. code-block:: none
 
    # Loopback with management access
-   set vpp interfaces loopback lo2
-   set vpp interfaces loopback lo2 description "Management loopback"
-   set vpp interfaces loopback lo2 kernel-interface vpptun2
-   set vpp kernel-interfaces vpptun2 address 10.255.255.1/32
+   set interfaces vpp loopback vpplo2
+   set interfaces vpp loopback vpplo2 description "Management loopback"
+   set interfaces vpp loopback vpplo2 address 10.255.255.1/32
 
 Bridge Virtual Interface (BVI)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -78,9 +135,8 @@ Bridge Virtual Interface (BVI)
 .. code-block:: none
 
    # Loopback as BVI for bridge
-   set vpp interfaces loopback lo3
-   set vpp interfaces loopback lo3 description "Bridge gateway interface"
-   set vpp interfaces bridge br1
-   set vpp interfaces bridge br1 member interface lo3 bvi
-   set vpp interfaces loopback lo3 kernel-interface vpptun3
-   set vpp kernel-interfaces vpptun3 address 192.168.100.1/24
+   set interfaces vpp loopback vpplo3
+   set interfaces vpp loopback vpplo3 description "Bridge gateway interface"
+   set interfaces vpp bridge vppbr1
+   set interfaces vpp bridge vppbr1 member interface vpplo3 bvi
+   set interfaces vpp loopback vpplo3 address 192.168.100.1/24

@@ -30,25 +30,25 @@ Basic Configuration
 Creating a Bridge Interface
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. cfgcmd:: set vpp interfaces bridge <brN>
+.. cfgcmd:: set interfaces vpp bridge <vppbrN>
 
-   Create a bridge interface where ``<brN>`` follows the naming convention br1, br2, etc.
+   Create a bridge interface where ``<vppbrN>`` follows the naming convention vppbr1, vppbr2, etc.
 
 .. note::
 
-   Bridge domain br0 is reserved by VPP and cannot be configured through VyOS. Start with br1 for your bridge configurations.
+   Bridge domain vppbr0 is reserved by VPP and cannot be configured through VyOS. Start with vppbr1 for your bridge configurations.
 
 **Example:**
 
 .. code-block:: none
 
-   set vpp interfaces bridge br1
+   set interfaces vpp bridge vppbr1
 
 
 Interface Description
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. cfgcmd:: set vpp interfaces bridge <brN> description <description>
+.. cfgcmd:: set interfaces vpp bridge <vppbrN> description <description>
 
    Set a descriptive name for the bridge interface.
 
@@ -56,14 +56,7 @@ Interface Description
 
 .. code-block:: none
 
-   set vpp interfaces bridge br1 description "Main campus bridge"
-
-Administrative Control
-^^^^^^^^^^^^^^^^^^^^^^
-
-.. cfgcmd:: set vpp interfaces bridge <brN> disable
-
-   Administratively disable the bridge interface. By default, bridge interfaces are enabled when created.
+   set interfaces vpp bridge vppbr1 description "Main campus bridge"
 
 Member Interface Configuration
 ------------------------------
@@ -71,7 +64,7 @@ Member Interface Configuration
 Adding Member Interfaces
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. cfgcmd:: set vpp interfaces bridge <brN> member interface <interface-name>
+.. cfgcmd:: set interfaces vpp bridge <vppbrN> member interface <interface-name>
 
    Add an interface as a member of the bridge.
 
@@ -80,19 +73,19 @@ Adding Member Interfaces
 .. code-block:: none
 
    # Add physical interfaces
-   set vpp interfaces bridge br1 member interface eth0
-   set vpp interfaces bridge br1 member interface eth1
+   set interfaces vpp bridge vppbr1 member interface eth0
+   set interfaces vpp bridge vppbr1 member interface eth1
    
    # Add other VPP interfaces
-   set vpp interfaces bridge br1 member interface bond0
-   set vpp interfaces bridge br1 member interface gre1
+   set interfaces vpp bridge vppbr1 member interface vppbond0
+   set interfaces vpp bridge vppbr1 member interface vppgre1
 
 .. important::
 
    Bridge members can include various interface types such as:
    
    * Physical Ethernet interfaces (eth0, eth1, etc.)
-   * :doc:`bonding` - VPP bonding interfaces (bond0, bond1, etc.)
+   * :doc:`bonding` - VPP bonding interfaces (vppbond0, vppbond1, etc.)
    * :doc:`gre` - GRE tunnel interfaces
    * :doc:`loopback` - Loopback interfaces
    * :doc:`vxlan` - VXLAN tunnel interfaces
@@ -105,7 +98,7 @@ A Bridge Virtual Interface (BVI) provides Layer 3 connectivity to a bridge domai
 Configuring BVI
 ^^^^^^^^^^^^^^^
 
-.. cfgcmd:: set vpp interfaces bridge <brN> member interface <loopback-interface> bvi
+.. cfgcmd:: set interfaces vpp bridge <vppbrN> member interface <loopback-interface> bvi
 
    Designate a loopback interface as the Bridge Virtual Interface for the bridge domain.
 
@@ -114,10 +107,10 @@ Configuring BVI
 .. code-block:: none
 
    # Create a loopback interface first
-   set vpp interfaces loopback lo1
+   set interfaces vpp loopback vpplo1
    
    # Add it to the bridge as BVI
-   set vpp interfaces bridge br1 member interface lo1 bvi
+   set interfaces vpp bridge vppbr1 member interface vpplo1 bvi
 
 .. important::
 
@@ -135,13 +128,13 @@ Basic Bridge Setup
 .. code-block:: none
 
    # Create bridge interface
-   set vpp interfaces bridge br1
-   set vpp interfaces bridge br1 description "Office network bridge"
+   set interfaces vpp bridge vppbr1
+   set interfaces vpp bridge vppbr1 description "Office network bridge"
    
    # Add member interfaces
-   set vpp interfaces bridge br1 member interface eth0
-   set vpp interfaces bridge br1 member interface eth1
-   set vpp interfaces bridge br1 member interface eth2
+   set interfaces vpp bridge vppbr1 member interface eth0
+   set interfaces vpp bridge vppbr1 member interface eth1
+   set interfaces vpp bridge vppbr1 member interface eth2
 
 Bridge with BVI
 ^^^^^^^^^^^^^^^
@@ -149,14 +142,14 @@ Bridge with BVI
 .. code-block:: none
 
    # Create bridge and loopback for BVI
-   set vpp interfaces bridge br2
-   set vpp interfaces bridge br2 description "Server segment with gateway"
-   set vpp interfaces loopback lo1
+   set interfaces vpp bridge vppbr2
+   set interfaces vpp bridge vppbr2 description "Server segment with gateway"
+   set interfaces vpp loopback vpplo1
    
    # Configure bridge members
-   set vpp interfaces bridge br2 member interface eth3
-   set vpp interfaces bridge br2 member interface eth4
-   set vpp interfaces bridge br2 member interface lo1 bvi
+   set interfaces vpp bridge vppbr2 member interface eth3
+   set interfaces vpp bridge vppbr2 member interface eth4
+   set interfaces vpp bridge vppbr2 member interface vpplo1 bvi
 
 Multi-Technology Bridge
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -164,37 +157,34 @@ Multi-Technology Bridge
 .. code-block:: none
 
    # Create bridge combining different interface types
-   set vpp interfaces bridge br3
-   set vpp interfaces bridge br3 description "Hybrid network bridge"
+   set interfaces vpp bridge vppbr3
+   set interfaces vpp bridge vppbr3 description "Hybrid network bridge"
    
    # Add various interface types
-   set vpp interfaces bridge br3 member interface bond1
-   set vpp interfaces bridge br3 member interface gre1
-   set vpp interfaces bridge br3 member interface vxlan1
-   set vpp interfaces bridge br3 member interface lo2 bvi
+   set interfaces vpp bridge vppbr3 member interface vppbond1
+   set interfaces vpp bridge vppbr3 member interface vppgre1
+   set interfaces vpp bridge vppbr3 member interface vppvxlan1
+   set interfaces vpp bridge vppbr3 member interface vpplo2 bvi
 
 Integration with Kernel Interfaces
 ----------------------------------
 
 Bridge interfaces can be integrated with kernel interfaces for management and compatibility with standard Linux networking services. This is accomplished by binding a kernel interface to the Bridge Virtual Interface (BVI).
 
-For detailed information about kernel interface integration, see :doc:`kernel`.
-
 **Example Integration:**
 
 .. code-block:: none
 
    # Create VPP bridge with member interfaces
-   set vpp interfaces bridge br1
-   set vpp interfaces bridge br1 member interface eth1
-   set vpp interfaces bridge br1 member interface eth2
+   set interfaces vpp bridge vppbr1
+   set interfaces vpp bridge vppbr1 member interface eth1
+   set interfaces vpp bridge vppbr1 member interface eth2
    
    # Create loopback interface and configure as BVI
-   set vpp interfaces loopback lo1
-   set vpp interfaces bridge br1 member interface lo1 bvi
+   set interfaces vpp loopback vpplo1
+   set interfaces vpp bridge vppbr1 member interface vpplo1 bvi
    
-   # Bind kernel interface to the BVI loopback
-   set vpp interfaces loopback lo1 kernel-interface 'vpptun1'
-   set vpp kernel-interfaces vpptun1 address '192.0.2.1/24'
+   # Bind LCP kernel interface to the BVI loopback
+   set interfaces vpp loopback vpplo1 address '192.0.2.1/24'
 
 This configuration creates a kernel interface bound to the BVI, allowing standard Linux applications and routing daemons to interact with the VPP bridge. The kernel interface provides Layer 3 access to the bridge domain.

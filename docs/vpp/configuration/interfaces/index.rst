@@ -16,7 +16,6 @@ VPP Interfaces Configuration
    bridge
    gre
    ipip
-   kernel
    loopback
    vxlan
    xconnect
@@ -35,6 +34,6 @@ VPP interfaces offer several advantages:
 Integration with Kernel
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-However, if needed, VyOS provides seamless integration between VPP and kernel networking. For detailed information about kernel interface integration, see :doc:`kernel`.
+However, VyOS provides seamless integration between VPP and kernel networking.
 
 This allows you to leverage the strengths of both approaches - create interfaces inside VPP, but still have them accessible from the Linux kernel and other services side.

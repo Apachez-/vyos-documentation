@@ -16,19 +16,19 @@ Basic Configuration
 Creating a VXLAN Interface
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. cfgcmd:: set vpp interfaces vxlan <vxlanN>
+.. cfgcmd:: set interfaces vpp vxlan <vppvxlanN>
 
-   Create a VXLAN interface where ``<vxlanN>`` follows the naming convention vxlan1, vxlan2, etc.
+   Create a VXLAN interface where ``<vppvxlanN>`` follows the naming convention vppvxlan1, vppvxlan2, etc.
 
-.. cfgcmd:: set vpp interfaces vxlan <vxlanN> vni <vni>
+.. cfgcmd:: set interfaces vpp vxlan <vppvxlanN> vni <vni>
 
    Set the Virtual Network Identifier (VNI) for the VXLAN tunnel. Valid range is 0-16777214.
 
-.. cfgcmd:: set vpp interfaces vxlan <vxlanN> remote <address>
+.. cfgcmd:: set interfaces vpp vxlan <vppvxlanN> remote <address>
 
    Set the tunnel remote endpoint address. Supports both IPv4 and IPv6 addresses.
 
-.. cfgcmd:: set vpp interfaces vxlan <vxlanN> source-address <address>
+.. cfgcmd:: set interfaces vpp vxlan <vppvxlanN> source-address <address>
 
    Set the tunnel source address. Must match an address configured on the local system.
 
@@ -36,10 +36,10 @@ Creating a VXLAN Interface
 
 .. code-block:: none
 
-   set vpp interfaces vxlan vxlan1
-   set vpp interfaces vxlan vxlan1 vni 100
-   set vpp interfaces vxlan vxlan1 remote 203.0.113.2
-   set vpp interfaces vxlan vxlan1 source-address 192.168.1.1
+   set interfaces vpp vxlan vppvxlan1
+   set interfaces vpp vxlan vppvxlan1 vni 100
+   set interfaces vpp vxlan vppvxlan1 remote 203.0.113.2
+   set interfaces vpp vxlan vppvxlan1 source-address 192.168.1.1
 
 Interface Configuration
 -----------------------
@@ -47,22 +47,39 @@ Interface Configuration
 Description and Administrative Control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. cfgcmd:: set vpp interfaces vxlan <vxlanN> description <description>
+.. cfgcmd:: set interfaces vpp vxlan <vppvxlanN> description <description>
 
    Set a descriptive name for the VXLAN interface.
 
-.. cfgcmd:: set vpp interfaces vxlan <vxlanN> disable
+.. cfgcmd:: set interfaces vpp vxlan <vppvxlanN> disable
 
    Administratively disable the VXLAN interface.
 
 Kernel Interface Integration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. cfgcmd:: set vpp interfaces vxlan <vxlanN> kernel-interface <interface-name>
+Kernel interface is bounded to the VXLAN tunnel for management and application compatibility.
 
-   Bind a kernel interface to the VXLAN tunnel for management and application compatibility.
+IP Address Configuration
+------------------------
 
-For detailed information about kernel interface integration, see :doc:`kernel`.
+.. cfgcmd:: set interfaces vpp vxlan <vppvxlanN> address <ip-address/prefix>
+
+   Configure IPv4 or IPv6 addresses on the kernel interface. Multiple addresses can be assigned.
+
+**Examples:**
+
+.. code-block:: none
+
+   set interfaces vpp vxlan vppvxlan1 address 192.168.1.10/24
+   set interfaces vpp vxlan vppvxlan1 address 2001:db8::10/64
+
+MTU Configuration
+-----------------
+
+.. cfgcmd:: set interfaces vpp vxlan <vppvxlanN> mtu <size>
+
+   Set the Maximum Transmission Unit (MTU) for the kernel interface. The MTU must be compatible with the connected VPP interface.
 
 Configuration Examples
 ----------------------
@@ -73,11 +90,11 @@ Basic VXLAN Tunnel
 .. code-block:: none
 
    # IPv4 VXLAN tunnel
-   set vpp interfaces vxlan vxlan1
-   set vpp interfaces vxlan vxlan1 description "Tenant A network extension"
-   set vpp interfaces vxlan vxlan1 vni 1000
-   set vpp interfaces vxlan vxlan1 remote 203.0.113.10
-   set vpp interfaces vxlan vxlan1 source-address 192.168.1.1
+   set interfaces vpp vxlan vppvxlan1
+   set interfaces vpp vxlan vppvxlan1 description "Tenant A network extension"
+   set interfaces vpp vxlan vppvxlan1 vni 1000
+   set interfaces vpp vxlan vppvxlan1 remote 203.0.113.10
+   set interfaces vpp vxlan vppvxlan1 source-address 192.168.1.1
 
 IPv6 VXLAN Tunnel
 ^^^^^^^^^^^^^^^^^
@@ -85,10 +102,10 @@ IPv6 VXLAN Tunnel
 .. code-block:: none
 
    # IPv6 endpoints
-   set vpp interfaces vxlan vxlan2
-   set vpp interfaces vxlan vxlan2 vni 2000
-   set vpp interfaces vxlan vxlan2 remote 2001:db8::2
-   set vpp interfaces vxlan vxlan2 source-address 2001:db8::1
+   set interfaces vpp vxlan vppvxlan2
+   set interfaces vpp vxlan vppvxlan2 vni 2000
+   set interfaces vpp vxlan vppvxlan2 remote 2001:db8::2
+   set interfaces vpp vxlan vppvxlan2 source-address 2001:db8::1
 
 VXLAN with Kernel Interface
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -96,12 +113,11 @@ VXLAN with Kernel Interface
 .. code-block:: none
 
    # VXLAN tunnel with management interface
-   set vpp interfaces vxlan vxlan3
-   set vpp interfaces vxlan vxlan3 vni 3000
-   set vpp interfaces vxlan vxlan3 remote 203.0.113.30
-   set vpp interfaces vxlan vxlan3 source-address 192.168.1.1
-   set vpp interfaces vxlan vxlan3 kernel-interface vpptap3
-   set vpp kernel-interfaces vpptap3 address 10.0.3.1/24
+   set interfaces vpp vxlan vppvxlan3
+   set interfaces vpp vxlan vppvxlan3 vni 3000
+   set interfaces vpp vxlan vppvxlan3 remote 203.0.113.30
+   set interfaces vpp vxlan vppvxlan3 source-address 192.168.1.1
+   set interfaces vpp vxlan vppvxlan3 address 10.0.3.1/24
 
 Bridge Integration
 ------------------
@@ -111,10 +127,10 @@ VXLAN interfaces are commonly used as members in VPP bridges for Layer 2 extensi
 .. code-block:: none
 
    # Add VXLAN tunnel to bridge
-   set vpp interfaces bridge br1
-   set vpp interfaces bridge br1 member interface vxlan1
-   set vpp interfaces bridge br1 member interface eth1
-   set vpp interfaces bridge br1 member interface lo1 bvi
+   set interfaces vpp bridge vppbr1
+   set interfaces vpp bridge vppbr1 member interface vppvxlan1
+   set interfaces vpp bridge vppbr1 member interface eth1
+   set interfaces vpp bridge vppbr1 member interface vpplo1 bvi
 
 Multi-Tenant Configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -122,14 +138,14 @@ Multi-Tenant Configuration
 .. code-block:: none
 
    # Multiple VNIs for tenant separation
-   set vpp interfaces vxlan vxlan10
-   set vpp interfaces vxlan vxlan10 description "Tenant A - Production"
-   set vpp interfaces vxlan vxlan10 vni 1001
-   set vpp interfaces vxlan vxlan10 remote 203.0.113.20
-   set vpp interfaces vxlan vxlan10 source-address 192.168.1.1
+   set interfaces vpp vxlan vppvxlan10
+   set interfaces vpp vxlan vppvxlan10 description "Tenant A - Production"
+   set interfaces vpp vxlan vppvxlan10 vni 1001
+   set interfaces vpp vxlan vppvxlan10 remote 203.0.113.20
+   set interfaces vpp vxlan vppvxlan10 source-address 192.168.1.1
    
-   set vpp interfaces vxlan vxlan11
-   set vpp interfaces vxlan vxlan11 description "Tenant A - Development"
-   set vpp interfaces vxlan vxlan11 vni 1002
-   set vpp interfaces vxlan vxlan11 remote 203.0.113.21
-   set vpp interfaces vxlan vxlan11 source-address 192.168.1.1
+   set interfaces vpp vxlan vppvxlan11
+   set interfaces vpp vxlan vppvxlan11 description "Tenant A - Development"
+   set interfaces vpp vxlan vppvxlan11 vni 1002
+   set interfaces vpp vxlan vppvxlan11 remote 203.0.113.21
+   set interfaces vpp vxlan vppvxlan11 source-address 192.168.1.1
