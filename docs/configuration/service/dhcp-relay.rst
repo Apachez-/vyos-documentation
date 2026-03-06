@@ -101,7 +101,7 @@ The generated configuration will look like:
 
   show service dhcp-relay
       listen-interface eth1
-      upstrem-interface eth2
+      upstream-interface eth2
       server 10.0.1.4
       relay-options {
          relay-agents-packets discard
