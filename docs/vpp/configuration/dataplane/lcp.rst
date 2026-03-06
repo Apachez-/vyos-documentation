@@ -34,7 +34,7 @@ behavior using the following command:
 
 .. _vpp_config_dataplane_lcp_ignore-kernel-routes:
 
-.. cfgcmd:: set vpp settings resource-allocation ignore-kernel-routes
+.. cfgcmd:: set vpp settings ignore-kernel-routes
 
 Pay attention that disabling this option leads to loss of connectivity to
 destinations if there are no direct routes in VPP routing table.
