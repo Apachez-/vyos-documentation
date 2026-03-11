@@ -118,12 +118,12 @@ IS-IS Global Configuration
   This command sets overload bit to avoid any transit traffic through this
   router. It is described in :rfc:`3787`.
 
-.. cfgcmd:: set protocols isis name default-information originate <ipv4|ipv6>
+.. cfgcmd:: set protocols isis default-information originate <ipv4|ipv6>
   level-1
 
   This command will generate a default-route in L1 database.
 
-.. cfgcmd:: set protocols isis name default-information originate <ipv4|ipv6>
+.. cfgcmd:: set protocols isis default-information originate <ipv4|ipv6>
   level-2
 
   This command will generate a default-route in L2 database.
@@ -224,23 +224,31 @@ Interface Configuration
   during convergence/interface flap events, but for this interface only.
 
 .. cfgcmd:: set protocols isis interface <interface> fast-reroute lfa [level-1 | level-2] enable
+
   This command enables per-prefix local LFA fast reroute link protection.
 
 .. cfgcmd:: set protocols isis interface <interface> fast-reroute lfa [level-1 | level-2] exclude
-  This command excludes an interface from the local LFA backup nexthop computation.
+
+  This command excludes an interface from the local LFA backup nexthop 
+  computation.
 
 .. cfgcmd:: set protocols isis interface <interface> fast-reroute remote-lfa [level-1 | level-2] tunnel mpls-ldp
+
   This command enables per-prefix Remote LFA fast reroute link protection.
   Note that other routers in the network need to be configured to accept LDP
   targeted hello messages in order for RLFA to work.
 
 .. cfgcmd:: set protocols isis interface <interface> fast-reroute remote-lfa [level-1 | level-2] maximum-metric <metric>
-  This command limits Remote LFA PQ node selection within the specified metric. Metric value range (1-16777215).
+
+  This command limits Remote LFA PQ node selection within the specified 
+  metric. Metric value range (1-16777215).
 
 .. cfgcmd:: set protocols isis interface <interface> fast-reroute ti-lfa [level-1|level-2] [node-protection [link-fallback]]
+
   This command enables per-prefix TI-LFA fast reroute link or node protection.
-  When node protection is used, option link-fallback enables the computation and
-  use of link-protecting LFAs for destinations unprotected by node protection.
+  When node protection is used, option link-fallback enables the computation 
+  and use of link-protecting LFAs for destinations unprotected by node 
+  protection.
 
 Route Redistribution
 --------------------
