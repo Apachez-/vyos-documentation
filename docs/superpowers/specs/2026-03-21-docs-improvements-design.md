@@ -2,19 +2,19 @@
 
 **Date:** 2026-03-21
 **Scope:** Documentation quality, consistency, structure, and RTD platform cleanup
-**Delivery:** 4 separate PRs + direct RTD API actions
+**Delivery:** 3 separate PRs + direct RTD API actions
 
 ---
 
 ## PR 1: Mechanical Fixes (`fix/docs-mechanical-cleanup`)
 
-### Heading Hierarchy (37 files)
+### Heading Hierarchy (35 files)
 
-Every RST file must start with `#####` as its first heading. Fix 37 files that use `=`, `*`, or `^` instead.
+Every RST file must start with `#####` (overline + underline) as its first heading. Fix 35 files that use `=`, `*`, or `-` instead.
 
 **Affected files:**
 
-Using `=` as first heading:
+Using `=` as first heading (23 files):
 - `automation/command-scripting.rst`
 - `automation/terraform/terraformAWS.rst`
 - `automation/terraform/terraformAZ.rst`
@@ -39,7 +39,7 @@ Using `=` as first heading:
 - `installation/update.rst`
 - `vpp/configuration/ipfix.rst`
 
-Using `^` as first heading:
+Using `-` as first heading (7 files):
 - `configexamples/azure-vpn-bgp.rst`
 - `configexamples/azure-vpn-dual-bgp.rst`
 - `configexamples/fwall-and-bridge.rst`
@@ -47,9 +47,8 @@ Using `^` as first heading:
 - `configexamples/policy-based-ipsec-and-firewall.rst`
 - `configexamples/site-2-site-cisco.rst`
 - `configexamples/zone-policy.rst`
-- `configuration/system/ip.rst`
 
-Using `*` as first heading:
+Using `*` as first heading (5 files):
 - `configuration/system/lcd.rst`
 - `installation/virtual/docker.rst`
 - `installation/virtual/libvirt.rst`
@@ -58,9 +57,23 @@ Using `*` as first heading:
 
 **Approach:** For each file, replace the first heading underline/overline character with `#`, keeping the same length. Adjust subsequent heading levels downward if needed to maintain proper hierarchy.
 
-### Indentation (205 lines)
+### Tab Indentation (13 files)
 
-Replace tab characters with 2-space indentation in RST files. Primary offender: `configuration/trafficpolicy/index.rst` (14+ lines).
+Replace tab characters with appropriate space indentation in RST files:
+
+- `configuration/trafficpolicy/index.rst`
+- `configuration/service/eventhandler.rst`
+- `configuration/interfaces/wireless.rst`
+- `cli.rst`
+- `installation/install.rst`
+- `automation/terraform/terraformGoogle.rst`
+- `automation/terraform/terraformAWS.rst`
+- `automation/terraform/terraformAZ.rst`
+- `automation/terraform/terraformvSphere.rst`
+- `configexamples/nmp.rst`
+- `configexamples/ansible.rst`
+- `configexamples/qos.rst`
+- `configexamples/l3vpn-hub-and-spoke.rst`
 
 ### Typos (2 files)
 
@@ -111,7 +124,7 @@ Add `.. note:: This page is a stub and needs expansion. Contributions welcome.` 
 
 ### Split `troubleshooting/index.rst`
 
-Current file: 461 lines covering 5 distinct topics. Split into:
+Current file: 460 lines covering 5 distinct topics. Split into:
 
 | New File | Content | Source Lines |
 |---|---|---|
@@ -120,7 +133,9 @@ Current file: 461 lines covering 5 distinct topics. Split into:
 | `troubleshooting/interfaces.rst` | Interface names, MAC address issues | Lines 160–199 |
 | `troubleshooting/monitoring.rst` | Traffic dumps, bandwidth, iperf, monitor command | Lines 201–358 |
 | `troubleshooting/terminal.rst` | Console clearing, counter resets | Lines 360–401 |
-| `troubleshooting/system.rst` | Boot steps, system information | Lines 404–461 |
+| `troubleshooting/system.rst` | Boot steps, system information | Lines 404–460 |
+
+**Heading levels in sub-pages:** Each sub-page starts with `#####` as its title. Internal sections are promoted accordingly: current `*****` sections become `*****` (unchanged if already second-level) or promoted to match. Current `=====` sub-sections become `*****`, and `-----` become `=====`. The goal is each sub-page has a self-contained heading hierarchy starting from `#####`.
 
 New `troubleshooting/index.rst` content:
 
@@ -149,7 +164,7 @@ Each sub-page gets a proper `#####` title heading.
 
 ### Create `contributing/index.rst`
 
-Create `contributing/index.rst` with title and toctree listing the 7 existing pages. Update root `index.rst` "Development" toctree to reference `contributing/index` instead of individual pages.
+Create `contributing/index.rst` with title and toctree listing the 7 existing contributing pages. Update root `index.rst` "Development" toctree to reference `contributing/index` instead of listing individual pages. Note: `documentation.rst` stays in the "Misc" toctree — it is a general writing guide, not a contributing-specific page.
 
 ### Clean up VPN "pages to sort"
 
@@ -160,7 +175,7 @@ Create `contributing/index.rst` with title and toctree listing the 7 existing pa
 
 ## RTD Platform Cleanup (Direct API Actions)
 
-### Hide Inactive Versions (17 versions)
+### Hide Inactive Versions (16 versions)
 
 Set `hidden: true` via PATCH on these inactive version slugs:
 
@@ -172,7 +187,10 @@ Set `hidden: true` via PATCH on these inactive version slugs:
 - `1.2.9-s1`
 - `vyos_1.2-2019q4`
 - `stable`
-- `current`
+
+Note: `current` is NOT hidden — it is the primary branch (`current` tracks VyOS 1.5.x rolling). The `latest` slug already points to this branch and is the active version; `current` is already inactive but should not be hidden in case it is referenced by external links.
+
+**Verification before applying:** Capture current state of all versions via `GET /api/v3/projects/vyos/versions/?limit=100` and save the response locally before making any PATCH calls. This provides a rollback reference.
 
 ### Delete Disabled Redirects (2 redirects)
 
@@ -196,8 +214,8 @@ Delete redirect IDs for:
 
 ## Success Criteria
 
-- All 37 heading hierarchy violations fixed
-- Zero tab characters in RST files
+- All 35 heading hierarchy violations fixed
+- Zero tab characters in RST files (13 files cleaned)
 - Zero typos in the identified files
 - 12 files flagged with TODO for directive conversion
 - Zero TBD placeholders remaining
@@ -205,5 +223,5 @@ Delete redirect IDs for:
 - `troubleshooting/` split into 5 focused sub-pages
 - `contributing/` has proper index page
 - VPN section has no "pages to sort" placeholders
-- RTD version list shows only 4 active, relevant versions
+- RTD: 16 stale inactive versions hidden from version selector
 - No disabled redirects remain
