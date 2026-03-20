@@ -224,7 +224,7 @@ git checkout -b fix/docs-content-quality current
 
 - [ ] **Step 2: Add TODO comment to each of the 12 files**
 
-For each file, add the following line after the first heading block (after the `####` underline and any blank line):
+For each file, add the following line after the first heading block (after the heading underline — which may be `====`, `----`, `****`, or `####` depending on whether PR 1 has been merged — and any blank line):
 
 ```rst
 .. TODO:: Convert raw command blocks in this file to cfgcmd/opcmd
@@ -402,7 +402,7 @@ Promote internal headings:
 
 - [ ] **Step 6: Create `troubleshooting/terminal.rst`**
 
-Extract lines 360–401 (Terminal/Console section):
+Extract lines 360–401 (Terminal/Console section). Lines 402–403 are blank separators and can be dropped.
 
 ```rst
 ################
@@ -416,7 +416,11 @@ No sub-headings to promote.
 
 - [ ] **Step 7: Create `troubleshooting/system.rst`**
 
-Extract lines 404–460 (System Information section). Include the reference links at the bottom (Quagga, GNU Zebra, FRR, etc.):
+Extract lines 404–460 (System Information section). This MUST include:
+- Lines 404–448: the System Information content and Boot Steps
+- Lines 449–460: `.. stop_vyoslinter`, all `.. _link:` reference definitions, AND `.. start_vyoslinter` on the final line
+
+The `.. stop_vyoslinter` / `.. start_vyoslinter` pair must stay balanced — both must be in this file since the reference link definitions between them use bare URLs that would otherwise trigger linter warnings.
 
 ```rst
 ##################
@@ -622,12 +626,12 @@ EOF
 **No files modified — API actions only.**
 
 RTD API base: `https://app.readthedocs.org/api/v3/projects/vyos`
-Auth header: `Authorization: Token $RTD_TOKEN` (token: `3950c3c5298ef12d7e78134a922f09811f7da37a`)
+Auth header: `Authorization: Token $RTD_TOKEN` (token: `$RTD_TOKEN`)
 
 - [ ] **Step 1: Capture current version state for rollback**
 
 ```bash
-curl -s -H "Authorization: Token 3950c3c5298ef12d7e78134a922f09811f7da37a" \
+curl -s -H "Authorization: Token $RTD_TOKEN" \
   "https://app.readthedocs.org/api/v3/projects/vyos/versions/?limit=100" \
   > /tmp/rtd-versions-backup-$(date +%Y%m%d).json
 ```
@@ -648,7 +652,7 @@ for slug in \
   stable; do
   echo "Hiding $slug..."
   curl -s -X PATCH \
-    -H "Authorization: Token 3950c3c5298ef12d7e78134a922f09811f7da37a" \
+    -H "Authorization: Token $RTD_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{"hidden": true}' \
     "https://app.readthedocs.org/api/v3/projects/vyos/versions/$slug/"
@@ -656,24 +660,24 @@ for slug in \
 done
 ```
 
-Expected: each call returns 204 No Content.
+Expected: each call returns 200 OK with JSON body showing the updated version.
 
 - [ ] **Step 3: Verify versions are hidden**
 
 ```bash
-curl -s -H "Authorization: Token 3950c3c5298ef12d7e78134a922f09811f7da37a" \
-  "https://app.readthedocs.org/api/v3/projects/vyos/versions/?active=true" \
-  | python3 -m json.tool
+curl -s -H "Authorization: Token $RTD_TOKEN" \
+  "https://app.readthedocs.org/api/v3/projects/vyos/versions/?limit=100" \
+  | python3 -c "import json,sys; versions=json.load(sys.stdin)['results']; [print(f'{v[\"slug\"]:40s} active={v[\"active\"]}  hidden={v[\"hidden\"]}') for v in versions]"
 ```
 
-Expected: only 4 active versions remain visible (latest, 1.4, 1.3, 1.2).
+Expected: 16 slugs show `hidden=True`, 4 active versions show `hidden=False`.
 
 ### Task 16: Delete disabled redirects
 
 - [ ] **Step 1: List redirects to get IDs**
 
 ```bash
-curl -s -H "Authorization: Token 3950c3c5298ef12d7e78134a922f09811f7da37a" \
+curl -s -H "Authorization: Token $RTD_TOKEN" \
   "https://app.readthedocs.org/api/v3/projects/vyos/redirects/" \
   | python3 -m json.tool
 ```
@@ -687,11 +691,11 @@ Find the `pk` values for the two disabled redirects:
 ```bash
 # Replace <ID1> and <ID2> with actual pk values from step 1
 curl -s -X DELETE \
-  -H "Authorization: Token 3950c3c5298ef12d7e78134a922f09811f7da37a" \
+  -H "Authorization: Token $RTD_TOKEN" \
   "https://app.readthedocs.org/api/v3/projects/vyos/redirects/<ID1>/"
 
 curl -s -X DELETE \
-  -H "Authorization: Token 3950c3c5298ef12d7e78134a922f09811f7da37a" \
+  -H "Authorization: Token $RTD_TOKEN" \
   "https://app.readthedocs.org/api/v3/projects/vyos/redirects/<ID2>/"
 ```
 
@@ -700,7 +704,7 @@ Expected: 204 No Content for each.
 - [ ] **Step 3: Verify redirects are cleaned up**
 
 ```bash
-curl -s -H "Authorization: Token 3950c3c5298ef12d7e78134a922f09811f7da37a" \
+curl -s -H "Authorization: Token $RTD_TOKEN" \
   "https://app.readthedocs.org/api/v3/projects/vyos/redirects/" \
   | python3 -m json.tool
 ```
