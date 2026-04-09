@@ -1,53 +1,61 @@
-:lastproofread: 2024-03-03
+:lastproofread: 2026-03-23
 
 .. _terraformvSphere:
 
-Deploying VyOS in the vSphere infrastructure
-============================================
+Deploy VyOS on VMware vSphere with Terraform and Ansible
+========================================================
 
-With the help of Terraform, you can quickly deploy VyOS-based
-infrastructure in the vSphere.
-Also we will make provisioning using Ansible.
+You can use Terraform to quickly deploy VyOS-based infrastructure
+on VMware vSphere (hereafter referred to as *vSphere*) and remove
+infrastructure when it's no longer needed.
+Additionally, you can use Ansible for provisioning.
 
-In this case, we'll create the necessary files for Terraform and
-Ansible next using Terraform we'll create a single instance on the
-vSphere cloud and make provisioning using Ansible.
+On this page you'll learn how to:
 
-Preparation steps for deploying VyOS on vSphere 
------------------------------------------------
+* Create the necessary files for Terraform and Ansible.
+* Use Terraform to create a single instance on Azure and use Ansible for
+  provisioning.
 
-How to create a single instance and install your configuration using
-Terraform+Ansible+vSphere
-Step by step:
+Prepare to deploy VyOS with Terraform on vSphere
+------------------------------------------------
 
+To create a single instance and install your configuration using
+Terraform, Ansible, and vSphere, follow these steps:
 
 vSphere
+^^^^^^^
 
 
-  1 Collect all data in to file "terraform.tfvars" and create
-    resources for example "terraform"
+.. stop_vyoslinter
 
+1. Add all necessary data to the ``terraform.tfvars``
+   `file <https://github.com/vyos/vyos-automation/blob/main/TerraformCloud/Vsphere_terraform_ansible_single_vyos_instance-main/terraform.tfvars>`__
+   and create resources.
+
+.. start_vyoslinter
 
 Terraform
+^^^^^^^^^
 
 
-  1 Create an UNIX or Windows instance
+1. Create an UNIX or Windows instance.
 
-  2 Download and install Terraform
+2. Download and install
+   `Terraform <https://developer.hashicorp.com/terraform/install>`__.
 
-  3 Create the folder for example /root/vsphereterraform
+3. Create the folder for example ``/root/vsphereterraform``.
 
 .. code-block:: none
 
  mkdir /root/vsphereterraform
  
 
-  4 Copy all files into your Terraform project
-    "/root/vsphereterraform" (vyos.tf, var.tf, terraform.tfvars,
-    version.tf), more detailed see
-    `Structure of files Terraform for vSphere`_
+4. Copy all files into your Terraform project ``/root/vsphereterraform``
+   (``vyos.tf``, ``var.tf``, ``terraform.tfvars``, ``version.tf``).
+   For more details,
+   see `Structure of files in Terraform for vSphere`_
 
-  5 Type the commands :
+5. Run the following commands:
 
 .. code-block:: none
 
@@ -56,23 +64,25 @@ Terraform
 
 
 Ansible
+^^^^^^^
 
 
-  1 Create an UNIX instance whenever you want (local, cloud, and so on)
+1. Create an UNIX instance either locally or in the cloud.
 
-  2 Download and install Ansible
+2. Download and install Ansible.
 
-  3 Create the folder for example /root/vsphereterraform/
+3. Create the folder. For example, ``/root/vsphereterraform/``.
 
-  4 Copy all files into your Ansible project
-    "/root/vsphereterraform/" (ansible.cfg, instance.yml, "all"),
-    more detailed see `Structure of files Ansible for vSphere`_
-
-
-Start 
+4. Copy all files into your Ansible project ``/root/vsphereterraform/``
+   (``ansible.cfg``, ``instance.yml``, ``all``). For more details, see
+   `Structure of files in Ansible for vSphere`_
 
 
-Type the commands on your Terraform instance:
+Deploy with Terraform
+^^^^^^^^^^^^^^^^^^^^^
+
+
+Run the following commands on your Terraform instance:
    
 .. code-block:: none
 
@@ -82,31 +92,31 @@ Type the commands on your Terraform instance:
    yes
 
 
-After executing all the commands you will have your VyOS instance on
-the vSphere with your configuration, it's a very convenient decision.
-If you need to delete the instance please type the command:
-
+After executing these commands, your VyOS instance is deployed to
+vSphere with your configuration.
+If you need to delete the instance, run the following command:
 .. code-block:: none
 
    terraform destroy
 
    
-Structure of files Terraform for vSphere
----------------------------------------
+Structure of files in Terraform for vSphere
+-------------------------------------------
 
 .. code-block:: none
 
  .
- ├── vyos.tf           # The main script
- ├── versions.tf       # File for the changing version of Terraform.
- ├── var.tf            # File for the changing version of Terraform.
- └── terraform.tfvars  # The value of all variables
+ ├── vyos.tf				    # The main script.
+ ├── versions.tf			  # File for Terraform version.
+ ├── var.tf				      # File for Terraform version.
+ └── terraform.tfvars		# Values for all variables (passwords,
+                        # login, IP addresses, etc.).
 
 
 File contents of Terraform for vSphere
--------------------------------------
+--------------------------------------
 
-vyos.tf
+``vyos.tf``
 
 .. code-block:: none
 
@@ -231,7 +241,7 @@ vyos.tf
   }
 
 
-versions.tf
+``versions.tf``
 
 .. code-block:: none
 
@@ -247,7 +257,7 @@ versions.tf
     }
   }
 
-var.tf
+``var.tf``
 
 .. code-block:: none
 
@@ -291,17 +301,17 @@ var.tf
   }
   
   variable "host" {
-    description = "name if yor host"
+    description = "Name of your host"
     type        = string
   }
   
   variable "remotename" {
-    description = "the name of you VM"
+    description = "The name of your VM"
     type        = string
   }
   
   variable "url_ova" {
-    description = "the URL to .OVA file or cloude store"
+    description = "The URL to the .OVA file or cloud storage"
     type        = string
   }
   
@@ -315,7 +325,7 @@ var.tf
     type        = string
   }
 
-terraform.tfvars
+``terraform.tfvars``
 
 .. code-block:: none
 
@@ -333,8 +343,8 @@ terraform.tfvars
   remotename         = ""
 
 
-Structure of files Ansible for vSphere
---------------------------------------
+Structure of files in Ansible for vSphere
+-----------------------------------------
 
 .. code-block:: none
 
@@ -348,7 +358,7 @@ Structure of files Ansible for vSphere
 File contents of Ansible for vSphere
 ------------------------------------
 
-ansible.cfg
+``ansible.cfg``
 
 .. code-block:: none
 
@@ -358,7 +368,7 @@ ansible.cfg
   remote_user=vyos
 
 
-instance.yml
+``instance.yml``
 
 .. code-block:: none
 
@@ -385,11 +395,12 @@ instance.yml
         vyos_config:
           lines:
             - set system name-server 192.0.2.1
+            - set system name-server 192.0.2.1
           save:
             true
 
 
-group_vars/all
+``group_vars/all``
 
 .. code-block:: none
 
@@ -402,14 +413,14 @@ group_vars/all
   ansible_ssh_pass: 12345678
 
 
-Sourse files for vSphere from GIT
----------------------------------
+Source files on GitHub
+----------------------
 
-All files about the article can be found here_
+All files related to deploying VyOS on vSpherewith Terraform and Ansible
+can be found in the vyos-automation_ repository.
+
 
 .. stop_vyoslinter
-
-.. _here: https://github.com/vyos/vyos-automation/tree/main/TerraformCloud/Vsphere_terraform_ansible_single_vyos_instance-main
+.. _vyos-automation: https://github.com/vyos/vyos-automation/tree/main/TerraformCloud/Vsphere_terraform_ansible_single_vyos_instance-main
 
 .. start_vyoslinter
-
