@@ -200,11 +200,14 @@ texinfo_documents = [
 
 def setup(app):
     # Prefer WebP for HTML output; LaTeX keeps its default (PDF/PNG/JPEG)
-    from sphinx.builders.html import StandaloneHTMLBuilder
-    StandaloneHTMLBuilder.supported_image_types = [
+    webp_types = [
         'image/webp',
         'image/svg+xml',
         'image/png',
         'image/gif',
         'image/jpeg',
     ]
+    from sphinx.builders.html import StandaloneHTMLBuilder
+    StandaloneHTMLBuilder.supported_image_types = webp_types
+    from sphinx.builders.dirhtml import DirectoryHTMLBuilder
+    DirectoryHTMLBuilder.supported_image_types = webp_types
