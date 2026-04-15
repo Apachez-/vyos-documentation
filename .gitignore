@@ -29,3 +29,6 @@ __pycache__
 
 # os specific
 .DS_Store
+
+# git worktrees
+.worktrees/
