@@ -39,7 +39,7 @@ adapted for however many NICs you have**:
 * DMZ cannot access LAN resources.
 * Inbound WAN connect to DMZ host.
 
-.. image:: /_static/images/zone-policy-diagram.png
+.. image:: /_static/images/zone-policy-diagram.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram

@@ -21,26 +21,26 @@ Google Cloud
 
 1 Create an account with Google Cloud and a new project
 
-.. image:: /_static/images/project.png
+.. image:: /_static/images/project.*
    :width: 50%
    :align: center
    :alt: Network Topology Diagram
 
 2 Create a service aacount and download your key (.JSON)
 
-.. image:: /_static/images/service.png
+.. image:: /_static/images/service.*
    :width: 50%
    :align: center
    :alt: Network Topology Diagram
 
-.. image:: /_static/images/key.png
+.. image:: /_static/images/key.*
    :width: 50%
    :align: center
    :alt: Network Topology Diagram
 
 The .JSON file download automaticly after creating and will look like:
 
-.. image:: /_static/images/json.png
+.. image:: /_static/images/json.*
    :width: 50%
    :align: center
    :alt: Network Topology Diagram

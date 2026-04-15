@@ -17,7 +17,7 @@ include firewall configuration.
 Network Topology
 ================
 
-.. image:: /_static/images/ipsec-vyos-pa.png
+.. image:: /_static/images/ipsec-vyos-pa.*
    :align: center
    :alt: Network Topology Diagram
 
@@ -137,36 +137,36 @@ Palo Alto
 GUI Configuration:
  Network -> Network Profiles -> IKE Crypto
 
- .. image:: /_static/images/PA-IKE-group.png
+ .. image:: /_static/images/PA-IKE-group.*
    :align: center
 
  Network -> Network Profiles -> IKE Gateways
 
- .. image:: /_static/images/PA-IKE-GW-1.png
+ .. image:: /_static/images/PA-IKE-GW-1.*
    :align: center
 
- .. image:: /_static/images/PA-IKE-GW-2.png
+ .. image:: /_static/images/PA-IKE-GW-2.*
    :align: center
 
  Network -> Network Profiles -> IPSec Crypto
 
- .. image:: /_static/images/PA-ESP-group.png
+ .. image:: /_static/images/PA-ESP-group.*
    :align: center
 
  Network -> Interfaces
 
- .. image:: /_static/images/PA-tunnel-1.png
+ .. image:: /_static/images/PA-tunnel-1.*
    :align: center
 
- .. image:: /_static/images/PA-tunnel-2.png
+ .. image:: /_static/images/PA-tunnel-2.*
    :align: center
 
- .. image:: /_static/images/PA-tunnel-3.png
+ .. image:: /_static/images/PA-tunnel-3.*
    :align: center
 
  Network -> IPSec Tunnels
 
- .. image:: /_static/images/PA-IPsec-tunnel.png
+ .. image:: /_static/images/PA-IPsec-tunnel.*
    :align: center
 
 CLI configuration with OSPF:

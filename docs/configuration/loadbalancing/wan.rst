@@ -201,7 +201,7 @@ Sticky Connections
 Inbound connections to a WAN interface can be improperly handled when the reply
 is sent back to the client.
 
-.. image:: /_static/images/sticky-connections.jpg
+.. image:: /_static/images/sticky-connections.*
    :width: 80%
    :align: center
 

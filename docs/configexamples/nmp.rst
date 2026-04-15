@@ -27,37 +27,37 @@ Configuration 'NMP'
 
 Next, you just  should follow the pictures:
 
-.. image:: /_static/images/nmp1.png
+.. image:: /_static/images/nmp1.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
    
-.. image:: /_static/images/nmp2.png
+.. image:: /_static/images/nmp2.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
    
-.. image:: /_static/images/nmp3.png
+.. image:: /_static/images/nmp3.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
    
-.. image:: /_static/images/nmp4.png
+.. image:: /_static/images/nmp4.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
 
-.. image:: /_static/images/nmp5.png
+.. image:: /_static/images/nmp5.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
 
-.. image:: /_static/images/nmp6.png
+.. image:: /_static/images/nmp6.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
 
-.. image:: /_static/images/nmp7.png
+.. image:: /_static/images/nmp7.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram

@@ -43,7 +43,7 @@ previously generated :abbr:`MOK (Machine Owner Key)` to the system.
 
 First, disable UEFI Secure Boot for the installation.
 
-.. figure:: /_static/images/uefi_secureboot_01.png
+.. figure:: /_static/images/uefi_secureboot_01.*
    :alt: Disable UEFI secure boot
 
 Proceed with the standard VyOS :ref:`installation <permanent_installation>` on
@@ -61,30 +61,30 @@ password after reboot when MOK Manager launches to permanently install the keys.
 
 With the next reboot, MOK Manager will automatically launch
 
-.. figure:: /_static/images/uefi_secureboot_02.png
+.. figure:: /_static/images/uefi_secureboot_02.*
    :alt: Disable UEFI secure boot
 
 Select ``Enroll MOK``
 
-.. figure:: /_static/images/uefi_secureboot_03.png
+.. figure:: /_static/images/uefi_secureboot_03.*
    :alt: Disable UEFI secure boot
 
 You can now view the key to be installed and continue with key installation.
 
-.. figure:: /_static/images/uefi_secureboot_04.png
+.. figure:: /_static/images/uefi_secureboot_04.*
    :alt: Disable UEFI secure boot
 
-.. figure:: /_static/images/uefi_secureboot_05.png
+.. figure:: /_static/images/uefi_secureboot_05.*
    :alt: Disable UEFI secure boot
 
 Now you need to enter the password you defined previously.
 
-.. figure:: /_static/images/uefi_secureboot_06.png
+.. figure:: /_static/images/uefi_secureboot_06.*
    :alt: Disable UEFI secure boot
 
 Now reboot and re-enable UEFI Secure Boot.
 
-.. figure:: /_static/images/uefi_secureboot_07.png
+.. figure:: /_static/images/uefi_secureboot_07.*
    :alt: Disable UEFI secure boot
 
 VyOS will now launch in UEFI Secure Boot mode. You can verify this by running

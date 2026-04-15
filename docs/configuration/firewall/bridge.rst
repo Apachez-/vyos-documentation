@@ -47,13 +47,13 @@ For traffic that needs to be switched internally by the bridge, base chain is
 **forward**, and it's base command for filtering is ``set firewall bridge
 forward filter ...``, which happens in stage 4, highlighted with red color.
 
-.. figure:: /_static/images/firewall-bridge-forward.png
+.. figure:: /_static/images/firewall-bridge-forward.*
 
 For traffic destined to the router itself, or that needs to be routed (assuming
 a layer3 bridge is configured), the base chain is **input**, the base command
 is ``set firewall bridge input filter ...`` and the path is:
 
-.. figure:: /_static/images/firewall-bridge-input.png
+.. figure:: /_static/images/firewall-bridge-input.*
 
 If it's not dropped, then the packet is sent to **IP Layer**, and will be
 processed by the **IP Layer** firewall: IPv4 or IPv6 ruleset. Check once again
@@ -64,7 +64,7 @@ And for traffic that originates from the bridge itself, the base chain is
 **output**, base command is ``set firewall bridge output filter ...``, and
 the path is:
 
-.. figure:: /_static/images/firewall-bridge-output.png
+.. figure:: /_static/images/firewall-bridge-output.*
 
 Custom bridge firewall chains can be created with the command ``set firewall bridge
 name <name> ...``. In order to use such custom chain, a rule with action jump,

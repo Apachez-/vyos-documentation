@@ -17,7 +17,7 @@ Topology
 The topology have a central and a branch VyOS router and one client, to
 test, in each site.
 
-.. image:: _include/topology.png
+.. image:: _include/topology.*
   :alt: Ansible Example topology image
 
 *************

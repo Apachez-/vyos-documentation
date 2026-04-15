@@ -16,7 +16,7 @@ Site-to-site VPN
 
 The following diagram illustrates a site-to-site VPN setup.
 
-.. figure:: /_static/images/wireguard_site2site_diagram.jpg
+.. figure:: /_static/images/wireguard_site2site_diagram.*
 
 ********
 Keypairs
@@ -425,7 +425,7 @@ simplify deployment, generate a per-mobile configuration from the VyOS CLI.
   to. The address parameter can be used twice to assign both an IPv4 (/32) and 
   an IPv6 (/128) address to the client.
 
-  .. figure:: /_static/images/wireguard_qrcode.jpg
+  .. figure:: /_static/images/wireguard_qrcode.*
      :alt: WireGuard Client QR code
 
 .. stop_vyoslinter

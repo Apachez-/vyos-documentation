@@ -218,7 +218,7 @@ Example
 
 In the following example we can see a basic multicast setup:
 
-.. image:: /_static/images/multicast-basic.png
+.. image:: /_static/images/multicast-basic.*
    :width: 90%
    :align: center
    :alt: Network Topology Diagram

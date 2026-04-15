@@ -102,7 +102,7 @@ A post-build Python script using `Pillow` for image operations and `BeautifulSou
    ```html
    <picture>
      <source srcset="image.webp" type="image/webp">
-     <img src="image.png" ...>
+     <img src="image.*" ...>
    </picture>
    ```
 

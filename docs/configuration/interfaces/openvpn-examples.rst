@@ -34,7 +34,7 @@ In both cases, we will use the following settings:
   router has a dynamic IP address.
 
 
-.. figure:: /_static/images/openvpn_site2site_diagram.jpg
+.. figure:: /_static/images/openvpn_site2site_diagram.*
 
 Set up site-to-site certificates
 --------------------------------

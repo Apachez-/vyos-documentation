@@ -272,7 +272,7 @@ VRF route leaking
 
 The following example topology was built using EVE-NG.
 
-.. figure:: /_static/images/vrf-example-topology-01.png
+.. figure:: /_static/images/vrf-example-topology-01.*
    :alt: VRF topology example
 
    VRF route leaking

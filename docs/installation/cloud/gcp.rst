@@ -25,27 +25,27 @@ To deploy VyOS on Google Cloud Platform (GCP):
 2. Open the GCP Console and navigate to **Metadata**. Select **SSH Keys** and 
    click **Edit**.
 
-.. figure:: /_static/images/cloud-gcp-01.png
+.. figure:: /_static/images/cloud-gcp-01.*
 
 
    Click **Add item**, paste your public SSH key, and click **Save**.
 
-.. figure:: /_static/images/cloud-gcp-02.png
+.. figure:: /_static/images/cloud-gcp-02.*
 
 
 3. Search for "VyOS" in the Marketplace.
 
 4. Configure the deployment name, zone, and machine type, then click **Deploy**.
 
-.. figure:: /_static/images/cloud-gcp-03.png
+.. figure:: /_static/images/cloud-gcp-03.*
 
 5. After a few seconds, select your **instance**.
 
-.. figure:: /_static/images/cloud-gcp-04.png
+.. figure:: /_static/images/cloud-gcp-04.*
 
 6. Note your external IP address.
 
-.. figure:: /_static/images/cloud-gcp-05.png
+.. figure:: /_static/images/cloud-gcp-05.*
 
 7. Connect to the instance using the SSH key you generated in step 1.
 

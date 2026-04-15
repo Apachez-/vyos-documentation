@@ -16,7 +16,7 @@ inside the tunnel.
 Network Topology
 ================
 
-.. image:: /_static/images/cisco-vpn-ipsec.png
+.. image:: /_static/images/cisco-vpn-ipsec.*
    :align: center
    :alt: Network Topology Diagram
 
