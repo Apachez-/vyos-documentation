@@ -210,15 +210,11 @@ texinfo_documents = [
 
 
 def _prefer_webp(app):
-    """Add WebP to front of supported types for HTML/dirhtml builders only."""
+    """Prepend WebP to supported image types for HTML builders."""
     if app.builder.name in ('html', 'dirhtml', 'readthedocs'):
-        app.builder.supported_image_types = [
-            'image/webp',
-            'image/svg+xml',
-            'image/png',
-            'image/gif',
-            'image/jpeg',
-        ]
+        types = app.builder.supported_image_types
+        if 'image/webp' not in types:
+            app.builder.supported_image_types = ['image/webp'] + types
 
 
 def setup(app):
