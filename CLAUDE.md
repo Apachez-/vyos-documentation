@@ -1,91 +1,118 @@
-# CLAUDE.md
+# VyOS Documentation
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+RST documentation for VyOS, built with Sphinx and hosted on Read the Docs.
 
-## Project Overview
-
-VyOS network OS documentation, built with Sphinx from reStructuredText sources. Hosted at https://docs.vyos.io. The `current` branch tracks VyOS 1.5.x (circinus) rolling release.
-
-## Build Commands
-
-All build commands run from the `docs/` directory.
-
-### Local (requires Sphinx installed via `pip install -r requirements.txt`)
+## Build
 
 ```bash
-cd docs
-make html              # Build HTML to docs/_build/html/
-make livehtml          # Live preview at http://localhost:8000
-make pdf               # Generate PDF
+# Docker (recommended)
+docker build -t vyos/vyos-documentation docker
+docker run --rm -it -v "$(pwd)":/vyos -w /vyos/docs \
+  -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) \
+  vyos/vyos-documentation make html
+
+# Local
+pip install -r requirements.txt
+cd docs && make html
 ```
 
-### Docker (preferred)
+Output goes to `docs/_build/html/`.
 
-```bash
-# Build HTML
-docker run --rm -it -v "$(pwd)":/vyos -w /vyos/docs -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) vyos/vyos-documentation make html
+## RST Conventions
 
-# Live preview
-docker run --rm -it -p 8000:8000 -v "$(pwd)":/vyos -w /vyos/docs -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) vyos/vyos-documentation make livehtml
+### Heading Hierarchy
+
+```rst
+#####
+Title
+#####
+
+********
+Chapters
+********
+
+Sections
+========
+
+Subsections
+-----------
+
+Subsubsections
+^^^^^^^^^^^^^^
+
+Paragraphs
+""""""""""
 ```
 
-### Linting (Vale)
+The first heading in every RST file must use `#` overline+underline. Files may have field lists (e.g., `:lastproofread:`) or labels before the heading.
 
-```bash
-# Lint all files
-docker run --rm -it -v "$(pwd)":/vyos -w /vyos/docs -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) vyos/vyos-documentation vale .
+### Formatting Rules
 
-# Lint a single file
-docker run --rm -it -v "$(pwd)":/vyos -w /vyos/docs -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) vyos/vyos-documentation vale quick-start.rst
+- 80 character line limit (except inside `.. code-block::`)
+- American English
+- Indent with 2 spaces
+- Leave a blank line before and after headers
+- Use double backticks for inline code: ``` ``command`` ```
+- Use `.. code-block:: none` for command/output blocks
+
+### Address Space
+
+See `docs/documentation.rst` for canonical rules. Per RFC 5737, RFC 3849, RFC 5389, and RFC 7042:
+
+The linter enforces documentation-reserved addresses. Use only:
+
+- IPv4: `192.0.2.0/24`, `198.51.100.0/24`, `203.0.113.0/24`
+- IPv6: `2001:db8::/32`
+- ASN: `64496-64511` (16-bit), `65536-65551` (32-bit)
+- MAC: `00-53-00` to `00-53-FF` (unicast), `90-10-00` to `90-10-FF` (multicast)
+
+**Allowed without suppression:**
+- RFC 1918 private ranges: `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`
+- Link-local, loopback, and other non-public ranges
+
+**Requires `stop/start_vyoslinter`:**
+- Real public IPs when needed for authenticity (e.g., `8.8.8.8` in DNS examples)
+- NAT64 well-known prefix `64:ff9b::/96`
+- Long URLs or certificate fingerprints that exceed 80 chars
+
+### Linter Suppression
+
+```rst
+.. stop_vyoslinter
+
+.. code-block:: none
+
+   content with real IPs or long lines here
+
+.. start_vyoslinter
 ```
 
-## Architecture
+Place markers immediately before/after the block they suppress. Always re-enable with `start_vyoslinter`.
 
-### Documentation Source
+### VyOS-Specific Directives
 
-- All RST source files live under `docs/` following the VyOS CLI hierarchy (e.g., `set firewall zone` → `docs/configuration/firewall/zone.rst`)
-- Main index: `docs/index.rst`
-- Sphinx config: `docs/conf.py`
-
-### Custom Sphinx Extensions (`docs/_ext/`)
-
-- **vyos.py** — Core extension defining custom directives and roles:
-  - `.. cfgcmd::` — Document configuration commands
-  - `.. opcmd::` — Document operational commands
-  - `.. cfgcmdlist::` / `.. opcmdlist::` — Generate command lists with coverage status
-  - `.. cmdinclude::` — Include RST with variable substitution (var0-var9)
-  - Roles: `:vytask:` (links to task tracker), `:cfgcmd:`, `:opcmd:` (inline command references)
-- **testcoverage.py** — Compares documented commands against XML definitions and actual VyOS commands
-- **releasenotes.py** — Release notes integration
-
-### Shared Fragments (`docs/_include/`)
-
-- `interface-*.txt` files contain shared RST blocks (e.g., common interface options) included via `.. cmdinclude::` with `var0`–`var9` substitution
-- `vyos-1x/` submodule contains VyOS source XML definitions used for command coverage analysis
-
-### Additional Extensions
-
-- **autosectionlabel.py** — Custom wrapper enabling cross-document section references via `autosectionlabel_prefix_document = True`
-- Both `.rst` and `.md` (MyST Markdown) are valid source formats
-
-## RST Writing Conventions
-
-- **Language**: American English
-- **Line length**: Max 80 characters (URLs exempt)
-- **Indentation**: 2 spaces
-- **Heading hierarchy** (top to bottom): `#####`, `*****`, `=====`, `-----`, `^^^^^`, `""""""`
-- Every RST file must start with the `#####` level title
-- Leave a newline before and after headers
-- Quote commands/filenames with double backticks; use literal blocks for longer snippets
-- Add `:lastproofread: YYYY-MM-DD` metadata to track proofreading currency (warns if >365 days old)
+- `.. cfgcmd::` — configuration mode commands
+- `.. opcmd::` — operational mode commands
+- `.. cmdinclude::` — include command definitions from XML
 
 ### Page Structure
 
-Each documentation page should follow this order:
-1. Theoretical information (what/why/when)
-2. Configuration description (using `cfgcmd` directives)
-3. Configuration examples with topology
-4. Known issues and workarounds
-5. Debugging procedures
+Each configuration page should contain:
 
-### Update `index.rst` when adding new pages.
+1. **Theory** — what it is, when to use it, relevant RFCs
+2. **Configuration** — all CLI options with `.. cfgcmd::` directives
+3. **Examples** — practical configurations with topology diagrams
+4. **Known issues** — problems and workarounds
+5. **Debugging** — log collection, `show` commands, state indicators
+
+## CI
+
+- **Linter** (`doc-linter.py` from `vyos/.github`): checks line length and IP addresses on changed files only
+- **Sphinx build**: runs on Read the Docs for each PR
+- **CLA check**: contributors must sign the CLA
+
+## Git Workflow
+
+- Base branch: `current`
+- Branch naming: `fix/docs-*`, `feat/docs-*`
+- PRs target `current` branch

@@ -1,17 +1,14 @@
-:lastproofread: 2024-07-04
+:lastproofread: 2026-03-23
 
 .. _wireless-interface:
 
-########################
-WLAN/WIFI - Wireless LAN
-########################
+####################
+Wireless LAN / Wi-Fi
+####################
 
-The :abbr:`WLAN (Wireless LAN)` interface provides 802.11 (a/b/g/n/ac) wireless
-support (commonly referred to as Wi-Fi) by means of compatible hardware. If
-your hardware supports it, VyOS supports multiple logical wireless interfaces
-per physical device.
-
-There are three modes of operation for a wireless interface:
+:abbr:`WLAN (Wireless LAN)` interfaces provide 802.11 (a/b/g/n/ac) wireless
+connectivity, referred to as Wi-Fi, and operate in one of the following
+modes:
 
 * :abbr:`WAP (Wireless Access-Point)` mode provides network access to connecting
   stations if the physical hardware supports acting as a WAP
@@ -22,7 +19,7 @@ There are three modes of operation for a wireless interface:
 * Monitor mode lets the system passively monitor wireless traffic
 
 If the system detects an unconfigured wireless device, it will be automatically
-added the configuration tree, specifying any detected settings (for example,
+added to the configuration tree, specifying any detected settings (for example,
 its MAC address) and configured to run in monitor mode.
 
 *************
@@ -36,7 +33,7 @@ Common interface configuration
    :var0: wireless
    :var1: wlan0
 
-System Wide configuration
+System-wide configuration
 =========================
 
 .. cfgcmd:: set system wireless country-code <cc>
@@ -45,24 +42,20 @@ System Wide configuration
   to indicate country in which device is operating. This can limit available
   channels and transmit power.
 
-  .. note:: This option is mandatory in Access-Point mode.
+  .. note:: This option is mandatory in ``access-point`` mode.
 
 Wireless options
 ================
 
-.. cfgcmd:: set system wireless country-code <cc>
-
-  Country code (ISO/IEC 3166-1). Used to set regulatory domain. Set as needed
-  to indicate country in which the box is operating. This can limit available
-  channels and transmit power.
-
-  .. note:: This option is mandatory in Access-Point mode.
-
 .. cfgcmd:: set interfaces wireless <interface> channel <number>
 
-  Channel number (IEEE 802.11), for 2.4Ghz (802.11 b/g/n/ax) channels range from
-  1-14. On 5Ghz (802.11 a/h/j/n/ac) channels available are 0, 34 to 177. 
-  On 6GHz (802.11 ax) channels range from 1 to 233.
+  Configure the IEEE 802.11 wireless radio channel for the interface.
+  Channel allocation depends on the frequency band:
+
+  * **2.4 GHz** (802.11b/g/n/ax): Channels range from 1 to 14.
+  * **5 GHz** (802.11a/h/j/n/ac/ax): Channels range from 34 to 177.
+  * **6 GHz** (802.11ax): Channels range from 1 to 233.
+  * **Automatic channel selection:** 0.
 
 .. cfgcmd:: set interfaces wireless <interface> disable-broadcast-ssid
 
@@ -84,7 +77,7 @@ Wireless options
 
   By default, this bridging is allowed.
 
-.. cfgcmd:: set interfaces wireless <interface> max-stations
+.. cfgcmd:: set interfaces wireless <interface> max-stations <count>
 
   Maximum number of stations allowed in station table. New stations will be
   rejected after the station table is full. IEEE 802.11 has a limit of 2007
@@ -144,9 +137,9 @@ Wireless options
 
   Wireless device type for this interface
 
-  * ``access-point`` - Access-point forwards packets between other nodes
-  * ``station`` - Connects to another access point
-  * ``monitor`` - Passively monitor all packets on the frequency/channel
+  * ``access-point``: Forwards packets between other nodes.
+  * ``station``: Connects to another :abbr:`AP (Access Point)`.
+  * ``monitor``: Passively monitors all packets on the frequency/channel.
 
 .. cmdinclude:: /_include/interface-per-client-thread.txt
    :var0: wireless
@@ -164,7 +157,8 @@ PPDU
 HT (High Throughput) capabilities (802.11n)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  Configuring HT mode options is required when using 802.11n or 802.11ax at 2.4GHz.
+  Configuring HT mode options is required when using 802.11n or
+  802.11ax at 2.4GHz.
 
 .. cfgcmd:: set interfaces wireless <interface> capabilities ht 40mhz-incapable
 
@@ -185,12 +179,9 @@ HT (High Throughput) capabilities (802.11n)
   * ``ht40+`` - Both 20 MHz and 40 MHz with secondary channel above the primary
     channel
 
-  .. note:: There are limits on which channels can be used with HT40- and HT40+.
-    Following table shows the channels that may be available for HT40- and HT40+
-    use per IEEE 802.11n Annex J:
-
-    Depending on the location, not all of these channels may be available for
-    use!
+  .. note:: Channel availability for HT40- and HT40+ is limited. The following
+     table lists channels permitted for HT40- and HT40+ according to IEEE
+     802.11n Annex J. Channel availability may vary by location.
 
     .. code-block:: none
 
@@ -199,7 +190,7 @@ HT (High Throughput) capabilities (802.11n)
       5 GHz		40,48,56,64	36,44,52,60
 
   .. note:: 40 MHz channels may switch their primary and secondary channels if
-    needed or creation of 40 MHz channel maybe rejected based on overlapping
+    needed or creation of 40 MHz channel may be rejected based on overlapping
     BSSes. These changes are done automatically when hostapd is setting up the
     40 MHz channel.
 
@@ -250,7 +241,11 @@ HT (High Throughput) capabilities (802.11n)
 VHT (Very High Throughput) capabilities (802.11ac)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. cfgcmd:: set interfaces wireless <interface> capabilities vht antenna-count
+.. stop_vyoslinter
+
+.. cfgcmd:: set interfaces wireless <interface> capabilities vht antenna-count <count>
+
+.. start_vyoslinter
 
   Number of antennas on this card
 
@@ -352,7 +347,7 @@ HE (High Efficiency) capabilities (802.11ax)
     single user beamformer
   * ``single-user-beamformee`` - Support for operation as 
     single user beamformee
-  * ``multi-user-beamformer`` - Support for operation as single 
+  * ``multi-user-beamformer`` - Support for operation as multi
     user beamformer
 
 .. cfgcmd:: set interfaces wireless <interface> 
@@ -394,7 +389,7 @@ HE (High Efficiency) capabilities (802.11ax)
 .. cfgcmd:: set interfaces wireless <interface> 
   capabilities he coding-scheme <number>
 
-  This setting configures Spacial Stream and Modulation Coding Scheme 
+  This setting configures Spatial Stream and Modulation Coding Scheme 
   settings for HE mode (HE-MCS). It is usually not needed to set this 
   explicitly, but it might help with some WiFi adapters.
 
@@ -417,10 +412,10 @@ default physical device (``phy0``) is used.
   set system wireless country-code de
   set interfaces wireless wlan0 type station
   set interfaces wireless wlan0 address dhcp
-  set interfaces wireless wlan0 ssid Test
+  set interfaces wireless wlan0 ssid 'TEST'
   set interfaces wireless wlan0 security wpa passphrase '12345678'
 
-Resulting in
+Resulting configuration:
 
 .. code-block:: none
 
@@ -445,7 +440,7 @@ Security
 ========
 
 :abbr:`WPA (Wi-Fi Protected Access)`, WPA2 Enterprise and WPA3 Enterprise in 
-combination with 802.1x based authentication can be used to authenticate 
+combination with 802.1X based authentication can be used to authenticate 
 users or computers in a domain.
 
 The wireless client (supplicant) authenticates against the RADIUS server
@@ -472,7 +467,7 @@ The WAP in this example has the following characteristics:
   set interfaces wireless wlan0 type access-point
   set interfaces wireless wlan0 channel 1
   set interfaces wireless wlan0 mode n
-  set interfaces wireless wlan0 ssid 'TEST'
+  set interfaces wireless wlan0 ssid 'Enterprise-TEST'
   set interfaces wireless wlan0 security wpa mode wpa2
   set interfaces wireless wlan0 security wpa cipher CCMP
   set interfaces wireless wlan0 security wpa radius server 192.168.3.10 key 'VyOSPassword'
@@ -480,7 +475,7 @@ The WAP in this example has the following characteristics:
 
 .. start_vyoslinter
 
-Resulting in
+Resulting configuration:
 
 .. code-block:: none
 
@@ -546,7 +541,7 @@ about all wireless interfaces.
 
 .. opcmd:: show interfaces wireless detail
 
-Use this command to view operational status and details wireless-specific
+Show the operational status and detailed wireless-specific
 information about all wireless interfaces.
 
 .. stop_vyoslinter
@@ -688,7 +683,7 @@ The WAP in this example has the following characteristics:
   set interfaces wireless wlan0 security wpa cipher CCMP
   set interfaces wireless wlan0 security wpa passphrase '12345678'
 
-Resulting in
+Resulting configuration:
 
 .. code-block:: none
 
@@ -715,28 +710,29 @@ Resulting in
       }
   }
 
-To get it to work as an access point with this configuration you will need
-to set up a DHCP server to work with that network. You can - of course - also
-bridge the Wireless interface with any configured bridge
-(:ref:`bridge-interface`) on the system.
+To enable access point functionality, configure a DHCP server for this
+interface's network, or add the interface to an existing local bridge
+(see :ref:`bridge-interface` for details).
 
-WiFi-6(e) - 802.11ax
-====================
+Wi-Fi 6/6E (802.11ax)
+=====================
 
-The following examples will show valid configurations for WiFi-6 (2.4GHz) 
-and WiFi-6e (6GHz) Access-Points with the following characteristics:
+The following examples configure Wi-Fi 6 (2.4 GHz) and Wi-Fi 6E (6 GHz)
+:abbr:`APs (Access Points)` with the following parameters:
 
-* Network ID (SSID) ``test.ax``
-* WPA passphrase ``super-dooper-secure-passphrase``
-* Use 802.11ax protocol
-* Wireless channel ``11`` for 2.4GHz
-* Wireless channel ``5`` for 6GHz 
+* Network ID (SSID): ``test.ax``
+* WPA passphrase: ``super-dooper-secure-passphrase``
+* Protocol: 802.11ax
+* Wireless channel for 2.4 GHz: ``11``
+* Wireless channel for 6 GHz: ``5``
 
 
-Example Configuration: WiFi-6 at 2.4GHz
----------------------------------------
+Example configuration: Wi-Fi 6 at 2.4 GHz
+------------------------------------------
 
-You may expect real throughputs around 10MBytes/s or higher in crowded areas.
+You may expect real throughput around 10 MB/s or higher in crowded areas.
+
+.. stop_vyoslinter
 
 .. code-block:: none
 
@@ -768,7 +764,9 @@ You may expect real throughputs around 10MBytes/s or higher in crowded areas.
   set interfaces wireless wlan0 type access-point
   commit
 
-Resulting in
+.. start_vyoslinter
+
+Resulting configuration:
 
 .. code-block:: none
 
@@ -824,13 +822,15 @@ Resulting in
       }
   }
 
-Example Configuration: WiFi-6e at 6GHz
---------------------------------------
+Example configuration: Wi-Fi 6E at 6 GHz
+-----------------------------------------
 
-You may expect real throughputs around 50MBytes/s to 150MBytes/s, 
-depending on obstructions by walls, water, metal or other materials
-with high electro-magnetic dampening at 6GHz. Best results are achieved 
+You may expect real throughput between 50 MB/s and 150 MB/s, depending on
+obstructions from walls, water, metal, or other materials
+with high electromagnetic damping at 6 GHz. Best results are achieved
 with the AP being in the same room and in line-of-sight.
+
+.. stop_vyoslinter
 
 .. code-block:: none
 
@@ -841,7 +841,7 @@ with the AP being in the same room and in line-of-sight.
   set interfaces wireless wlan0 capabilities he beamform single-user-beamformer
   set interfaces wireless wlan0 capabilities he bss-color 13
   set interfaces wireless wlan0 capabilities he channel-set-width 134
-  set interfaces wireless wlan0 capabilities he capabilities he center-channel-freq freq-1 15
+  set interfaces wireless wlan0 capabilities he center-channel-freq freq-1 15
   set interfaces wireless wlan0 channel 5
   set interfaces wireless wlan0 description "802.11ax 6GHz"
   set interfaces wireless wlan0 mode ax
@@ -858,7 +858,9 @@ with the AP being in the same room and in line-of-sight.
   set interfaces wireless wlan0 stationary-ap
   commit
 
-Resulting in
+.. start_vyoslinter
+
+Resulting configuration:
 
 .. code-block:: none
 
@@ -913,8 +915,7 @@ Resulting in
 Intel AX200
 ===========
 
-The Intel AX200 card does not work out of the box in AP mode, see
-https://unix.stackexchange.com/questions/598275/intel-ax200-ap-mode. You can
+The Intel AX200 card does not work out of the box in AP mode. You can
 still put this card into AP mode using the following configuration:
 
 .. stop_vyoslinter
