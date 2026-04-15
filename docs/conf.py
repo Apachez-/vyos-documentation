@@ -198,16 +198,17 @@ texinfo_documents = [
 ]
 
 
+def _prefer_webp(app):
+    """Add WebP to front of supported types for HTML/dirhtml builders only."""
+    if app.builder.name in ('html', 'dirhtml', 'readthedocs'):
+        app.builder.supported_image_types = [
+            'image/webp',
+            'image/svg+xml',
+            'image/png',
+            'image/gif',
+            'image/jpeg',
+        ]
+
+
 def setup(app):
-    # Prefer WebP for HTML output; LaTeX keeps its default (PDF/PNG/JPEG)
-    webp_types = [
-        'image/webp',
-        'image/svg+xml',
-        'image/png',
-        'image/gif',
-        'image/jpeg',
-    ]
-    from sphinx.builders.html import StandaloneHTMLBuilder
-    StandaloneHTMLBuilder.supported_image_types = webp_types
-    from sphinx.builders.dirhtml import DirectoryHTMLBuilder
-    DirectoryHTMLBuilder.supported_image_types = webp_types
+    app.connect('builder-inited', _prefer_webp)
