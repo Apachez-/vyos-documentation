@@ -64,6 +64,7 @@ Setup the IPv6 default route to the tunnel interface
 
 Now you should be able to ping a public IPv6 Address
 
+.. stop_vyoslinter
 
 .. code-block:: none
 
@@ -73,10 +74,12 @@ Now you should be able to ping a public IPv6 Address
    64 bytes from 2001:470:20::2: icmp_seq=2 ttl=64 time=43.9 ms
    64 bytes from 2001:470:20::2: icmp_seq=3 ttl=64 time=43.4 ms
    64 bytes from 2001:470:20::2: icmp_seq=4 ttl=64 time=42.5 ms
-   
+
    --- 2001:470:20::2 ping statistics ---
    4 packets transmitted, 4 received, 0% packet loss, time 2999ms
    rtt min/avg/max/mdev = 33.802/40.920/43.924/4.139 ms
+
+.. start_vyoslinter
 
 
 Assuming the pings are successful, you need to add some DNS servers.
@@ -88,6 +91,7 @@ Some options:
 
 You should now be able to ping something by IPv6 DNS name:
 
+.. stop_vyoslinter
 
 .. code-block:: none
 
@@ -97,10 +101,12 @@ You should now be able to ping something by IPv6 DNS name:
    64 bytes from tunnelbroker.net (2001:470:0:63::2): icmp_seq=2 ttl=48 time=186 ms
    64 bytes from tunnelbroker.net (2001:470:0:63::2): icmp_seq=3 ttl=48 time=178 ms
    64 bytes from tunnelbroker.net (2001:470:0:63::2): icmp_seq=4 ttl=48 time=177 ms
-   
+
    --- tunnelbroker.net ping statistics ---
    4 packets transmitted, 4 received, 0% packet loss, time 3002ms
    rtt min/avg/max/mdev = 176.707/206.638/285.128/45.457 ms
+
+.. start_vyoslinter
 
 
 *****************
@@ -151,6 +157,7 @@ This accomplishes a few things:
 
 Now the Client is able to ping a public IPv6 address
 
+.. stop_vyoslinter
 
 .. code-block:: none
 
@@ -160,10 +167,12 @@ Now the Client is able to ping a public IPv6 address
    64 bytes from 2001:470:20::2: icmp_seq=2 ttl=63 time=41.8 ms
    64 bytes from 2001:470:20::2: icmp_seq=3 ttl=63 time=41.7 ms
    64 bytes from 2001:470:20::2: icmp_seq=4 ttl=63 time=47.1 ms
-   
+
    --- 2001:470:20::2 ping statistics ---
    4 packets transmitted, 4 received, 0% packet loss, time 3005ms
    rtt min/avg/max/mdev = 32.128/40.688/47.107/5.403 ms
+
+.. start_vyoslinter
 
 
 Multiple LAN/DMZ Setup
@@ -186,6 +195,8 @@ In the above examples, 1,2,ffff are all chosen by you. You can use 1-ffff
 
 So, when your LAN is eth1, your DMZ is eth2, your cameras are on eth3, etc:
 
+.. stop_vyoslinter
+
 .. code-block:: none
 
   set interfaces ethernet eth1 address '2001:470:xxxx:1::1/64'
@@ -199,6 +210,8 @@ So, when your LAN is eth1, your DMZ is eth2, your cameras are on eth3, etc:
   set interfaces ethernet eth3 address '2001:470:xxxx:3::1/64'
   set service router-advert interface eth3 name-server '2001:470:20::2'
   set service router-advert interface eth3 prefix 2001:470:xxxx:3::/64
+
+.. start_vyoslinter
 
 Please note, 'autonomous-flag' and 'on-link-flag' are enabled by default,
 'valid-lifetime' and 'preferred-lifetime' are set to default values of
