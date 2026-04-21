@@ -79,6 +79,8 @@ LAC
 LNS
 ---
 
+.. stop_vyoslinter
+
 .. code-block:: none
 
     set interfaces ethernet eth0 address '192.168.139.100/24'
@@ -95,6 +97,8 @@ LNS
     set vpn l2tp remote-access lns shared-secret 'test123'
     set vpn l2tp remote-access name-server '8.8.8.8'
     set vpn l2tp remote-access ppp-options disable-ccp
+
+.. start_vyoslinter
 
 .. note:: This setup requires the Compression Control Protocol (CCP)
           being disabled, the command ``set vpn l2tp remote-access ppp-options disable-ccp``
