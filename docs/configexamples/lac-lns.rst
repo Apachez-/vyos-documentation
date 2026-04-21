@@ -101,7 +101,8 @@ LNS
 .. start_vyoslinter
 
 .. note:: This setup requires the Compression Control Protocol (CCP)
-          being disabled, the command ``set vpn l2tp remote-access ppp-options disable-ccp``
+          being disabled, the command
+          ``set vpn l2tp remote-access ppp-options disable-ccp``
           accomplishes that.
 
 Client

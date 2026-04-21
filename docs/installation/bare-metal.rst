@@ -414,7 +414,8 @@ Pictures
 Cooling
 -------
 
-The device itself is passivly cooled, whereas the power supply has an active fan.
+The device itself is passivly cooled, whereas the power supply has an
+active fan.
 Even if the main processor is powered off, the power supply fan is operating and
 the entire chassis draws 7.5W. During operation the chassis drew arround 38W.
 

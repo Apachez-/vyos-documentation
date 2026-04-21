@@ -64,9 +64,10 @@ To create NBMA GRE tunnel you might use the following:
 * Please refer to the :ref:`tunnel-interface` documentation for the individual
   tunnel related options.
 
-  .. note:: The IP-address is assigned as host prefix to tunnel interface.
-    NHRP will automatically create additional host routes pointing to tunnel interface
-    when a connection with these hosts is established.
+  .. note:: The IP-address is assigned as host prefix to tunnel
+    interface. NHRP will automatically create additional host routes
+    pointing to tunnel interface when a connection with these hosts is
+    established.
 
 The tunnel interface subnet prefix should be announced by routing protocol
 from the hub nodes (e.g. BGP ‘network’ announce). This allows the routing
@@ -112,46 +113,57 @@ NHRP protocol configuration
 
   * **network-id** - NHRP network id <1-4294967295>
 
-  Enable NHRP on this interface and set the interface’s network ID. The network ID
-  is used to allow creating multiple nhrp domains on a router when multiple interfaces
-  are configured on the router. Interfaces configured with the same ID are part of the
-  same logical NBMA network. The ID is a local only parameter and is not sent to other
-  NHRP nodes and so IDs on different nodes do not need to match. When NHRP packets are
-  received on an interface they are assigned to the local NHRP domain for that interface.
+  Enable NHRP on this interface and set the interface’s network ID.
+  The network ID is used to allow creating multiple nhrp domains on a
+  router when multiple interfaces are configured on the router.
+  Interfaces configured with the same ID are part of the same logical
+  NBMA network. The ID is a local only parameter and is not sent to
+  other NHRP nodes and so IDs on different nodes do not need to match.
+  When NHRP packets are received on an interface they are assigned to
+  the local NHRP domain for that interface.
+
+.. stop_vyoslinter
 
 .. cfgcmd:: set protocols nhrp tunnel <tunnel> nhs tunnel-ip <tunnel-ip> nbma <nbma-ip>
 
   * **tunnel-ip** - Tunnel ip address in format **x.x.x.x** or **dynamic**
   * **nbma-ip** - NBMA ip address in format **x.x.x.x**
 
-  Configure the Next Hop Server address and its NBMA address. If dynamic is specified
-  then Next Hop Server can have dynamic address which maps to its NBMA address.
+  Configure the Next Hop Server address and its NBMA address. If
+  dynamic is specified then Next Hop Server can have dynamic address
+  which maps to its NBMA address.
+
+.. start_vyoslinter
 
 .. cfgcmd:: set protocols nhrp tunnel <tunnel> redirect
 
-  This enable redirect replies on the NHS similar to ICMP redirects except this is
-  managed by the nhrp protocol. This setting allows spokes to communicate with each
-  others directly.
+  This enable redirect replies on the NHS similar to ICMP redirects
+  except this is managed by the nhrp protocol. This setting allows
+  spokes to communicate with each others directly.
 
 .. cfgcmd:: set protocols nhrp tunnel <tunnel> registration-no-unique
 
-  Allow the client to not set the unique flag in the NHRP packets. This is useful when
-  a station has a dynamic IP address that could change over time.
+  Allow the client to not set the unique flag in the NHRP packets.
+  This is useful when a station has a dynamic IP address that could
+  change over time.
 
 .. cfgcmd:: set protocols nhrp tunnel <tunnel> shortcut
 
-  Enable shortcut (spoke-to-spoke) tunnels to allow NHC to talk to each others directly
-  after establishing a connection without going through the hub.
+  Enable shortcut (spoke-to-spoke) tunnels to allow NHC to talk to
+  each others directly after establishing a connection without going
+  through the hub.
 
 IPSEC configuration
 ==============================
 
-* Please refer to the :ref:`ipsec_general` documentation for the individual IPSec
-  related options.
+* Please refer to the :ref:`ipsec_general` documentation for the
+  individual IPSec related options.
 
-.. note:: NHRP daemon based on FRR nhrpd. It controls IPSEC. That's why 'close-action'
-  parameter in IKE configuration always is set to 'close' and 'dead-peer-detection action'
-  always is set to 'clear'.
+.. note:: NHRP daemon based on FRR nhrpd. It controls IPSEC. That's
+  why 'close-action' parameter in IKE configuration always is set to
+  'close' and 'dead-peer-detection action' always is set to 'clear'.
+
+.. stop_vyoslinter
 
 .. cfgcmd:: set vpn ipsec profile <profile-name> authentication mode pre-shared-secret
 
@@ -160,6 +172,8 @@ IPSEC configuration
 .. cfgcmd:: set vpn ipsec profile <profile-name> authentication pre-shared-secret <secret>
 
   Set preshared secret
+
+.. start_vyoslinter
 
 .. cfgcmd:: set vpn ipsec profile <profile-name> bind tunnel <tunnel name>
 

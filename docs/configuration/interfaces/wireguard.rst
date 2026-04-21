@@ -33,8 +33,9 @@ Generate keypair
 
    Generate a keypair: a public and a private key.
    
-   .. note:: This command only outputs the keys to your console. It neither stores 
-      them in the system nor applies them to the system configuration.
+   .. note:: This command only outputs the keys to your console. It
+      neither stores them in the system nor applies them to the system
+      configuration.
 
 
    .. code-block:: none
@@ -58,9 +59,9 @@ Generate keypair
 
      Corresponding public-key to use on peer system is: 'UxDsYT6EnpTIOKUzvMlw2p0sNOKQvFxEdSVrnNrX1Ro='
 
-   .. note:: If you invoke this command from configuration mode with the ``run`` 
-      prefix, the generated private key is automatically assigned to the specified 
-      interface. 
+   .. note:: If you invoke this command from configuration mode with
+      the ``run`` prefix, the generated private key is automatically
+      assigned to the specified interface.
 
    .. code-block:: none
 
@@ -103,10 +104,12 @@ Optional
      Pre-shared key: OHH2EwZfMNK+1L6BXbYw3bKCtMrfjpR4mCAEeBlFnRs=
 
 
+.. stop_vyoslinter
+
 .. opcmd:: generate pki wireguard preshared-key install interface <interface> peer <peer>
 
-   Generate a pre-shared key and output the key assignment command for the 
-   specified peer.
+   Generate a pre-shared key and output the key assignment command for
+   the specified peer.
 
    .. code-block:: none
 
@@ -119,8 +122,11 @@ Optional
      Pre-shared key: +LuaZ8W6DjsDFJFX3jJzoNqrsXHhvq08JztM9z8LHCs=
 
 
-   .. note:: If you invoke this command from configuration mode with the run 
-      prefix, the generated key is automatically assigned to the specified peer. 
+   .. note:: If you invoke this command from configuration mode with
+      the run prefix, the generated key is automatically assigned to
+      the specified peer.
+
+.. start_vyoslinter
 
 
 ***********************
@@ -133,7 +139,8 @@ networks you want to tunnel (``allowed-ips``).
 If your system only initiates connections, specifying the listen port is 
 optional. If your system accepts incoming connections, you must define a port 
 for peers to connect to. Otherwise, WireGuard selects a random port at each 
-reboot, and that may break your peers' ability to connect if that port is not enabled in your firewall rules.
+reboot, and that may break your peers' ability to connect if that port
+is not enabled in your firewall rules.
 
 To configure a WireGuard tunnel, you also need your peer's public key.
 
@@ -417,13 +424,13 @@ simplify deployment, generate a per-mobile configuration from the VyOS CLI.
   The public key from the specified interface is automatically included in the 
   configuration file.
 
-  The command also generates a configuration snippet that can be copied into the 
-  VyOS CLI. The ``<name>`` you provide will be used as the peer name in the 
-  snippet.
+  The command also generates a configuration snippet that can be copied
+  into the VyOS CLI. The ``<name>`` you provide will be used as the peer
+  name in the snippet.
 
-  You must also specify the IP address or FQDN of the server the client connects 
-  to. The address parameter can be used twice to assign both an IPv4 (/32) and 
-  an IPv6 (/128) address to the client.
+  You must also specify the IP address or FQDN of the server the client
+  connects to. The address parameter can be used twice to assign both an
+  IPv4 (/32) and an IPv6 (/128) address to the client.
 
   .. figure:: /_static/images/wireguard_qrcode.*
      :alt: WireGuard Client QR code
