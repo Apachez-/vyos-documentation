@@ -49,11 +49,10 @@ information.
 
 | Add the LDAP plugin configuration file `/config/auth/ldap-auth.config`
 
-.. stop_vyoslinter
+| Check all possible settings `here`_.
 
-| Check all possible settings `here <https://github.com/threerings/openvpn-auth-ldap/blob/master/auth-ldap.conf>`_
-
-.. start_vyoslinter
+.. _here:
+   https://github.com/threerings/openvpn-auth-ldap/blob/master/auth-ldap.conf
 
 .. literalinclude:: _include/ldap-auth.config
    :language: none

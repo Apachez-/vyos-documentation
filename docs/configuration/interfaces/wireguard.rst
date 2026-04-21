@@ -435,8 +435,5 @@ simplify deployment, generate a per-mobile configuration from the VyOS CLI.
   .. figure:: /_static/images/wireguard_qrcode.*
      :alt: WireGuard Client QR code
 
-.. stop_vyoslinter
-
-.. _`WireGuard mailing list`: https://lists.zx2c4.com/pipermail/wireguard/2018-December/003704.html
-
-.. start_vyoslinter
+.. _`WireGuard mailing list`:
+   https://lists.zx2c4.com/pipermail/wireguard/2018-December/003704.html

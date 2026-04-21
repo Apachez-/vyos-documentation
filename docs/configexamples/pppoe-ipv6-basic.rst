@@ -51,12 +51,8 @@ delegation (PD).
    set interfaces pppoe pppoe0 ipv6 address autoconf
    set interfaces pppoe pppoe0 dhcpv6-options pd 0 interface eth1 address '100'
 
-.. stop_vyoslinter
-
 * Here we use the prefix to configure the address of eth1 (LAN) to form
   ``<prefix>::64``, where ``64`` is hexadecimal of address 100.
-
-.. start_vyoslinter
 
 * For home network users, most of time ISP only provides /64 prefix, hence
   there is no need to set SLA ID and prefix length. See :ref:`pppoe-interface`
