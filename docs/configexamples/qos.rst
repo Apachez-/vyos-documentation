@@ -18,7 +18,7 @@ first.
 
 Using the general schema for example:
 
-.. image:: /_static/images/qos1.png
+.. image:: /_static/images/qos1.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
@@ -79,21 +79,21 @@ Main rules:
 
 Check the result
 
-.. image:: /_static/images/qos2.png
+.. image:: /_static/images/qos2.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
 
 Before the interface eth0 on router VyOS3
 
-.. image:: /_static/images/qos3.png
+.. image:: /_static/images/qos3.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
 
 After the interface eth0 on router VyOS3
 
-.. image:: /_static/images/qos4.png
+.. image:: /_static/images/qos4.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
@@ -120,7 +120,7 @@ default class and class for changing all labels from CS0 to CS4
 Next on the router VyOS2 we will change labels on all incoming
 traffic only from CS4-> CS6
 
-.. image:: /_static/images/qos5.png
+.. image:: /_static/images/qos5.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
@@ -143,28 +143,28 @@ traffic only from CS4-> CS6
     set qos policy shaper vyos2 default queue-type 'fair-queue'
         set qos interface eth2 egress 'vyos2'
 
-.. image:: /_static/images/qos6.png
+.. image:: /_static/images/qos6.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
 
 * 172.17.1.2/24 CS0 
 
-.. image:: /_static/images/qos7.png
+.. image:: /_static/images/qos7.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
 
 * 172.17.1.2/24 CS0 - > CS4
 
-.. image:: /_static/images/qos8.png
+.. image:: /_static/images/qos8.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
 
 * 172.17.1.2/24 CS4 - > CS5
 
-.. image:: /_static/images/qos9.png
+.. image:: /_static/images/qos9.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
@@ -192,7 +192,7 @@ Set up bandwidth limits on the eth2 interface of the router “VyOS2”.
 
 Check the result.
 
-.. image:: /_static/images/qos10.png
+.. image:: /_static/images/qos10.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram

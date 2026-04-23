@@ -20,7 +20,7 @@ All users with domain **vyos.io** will be tunneled to LNS via L2TP.
 Network Topology
 ================
 
-.. image:: /_static/images/lac-lns-diagram.jpg
+.. image:: /_static/images/lac-lns-diagram.*
    :width: 60%
    :align: center
    :alt: Network Topology Diagram
@@ -79,6 +79,8 @@ LAC
 LNS
 ---
 
+.. stop_vyoslinter
+
 .. code-block:: none
 
     set interfaces ethernet eth0 address '192.168.139.100/24'
@@ -96,8 +98,11 @@ LNS
     set vpn l2tp remote-access name-server '8.8.8.8'
     set vpn l2tp remote-access ppp-options disable-ccp
 
+.. start_vyoslinter
+
 .. note:: This setup requires the Compression Control Protocol (CCP)
-          being disabled, the command ``set vpn l2tp remote-access ppp-options disable-ccp``
+          being disabled, the command
+          ``set vpn l2tp remote-access ppp-options disable-ccp``
           accomplishes that.
 
 Client
@@ -105,7 +110,7 @@ Client
 
 In this lab we use Windows PPPoE client.
 
-.. image:: /_static/images/lac-lns-winclient.jpg
+.. image:: /_static/images/lac-lns-winclient.*
    :width: 100%
    :align: center
    :alt: Window PPPoE Client Configuration

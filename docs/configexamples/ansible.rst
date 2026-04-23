@@ -15,7 +15,7 @@ We have four pre-configured routers with this configuration:
 
 Using the general schema for example:
 
-.. image:: /_static/images/ansible.png
+.. image:: /_static/images/ansible.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram

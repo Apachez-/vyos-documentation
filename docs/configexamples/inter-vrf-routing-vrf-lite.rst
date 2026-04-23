@@ -16,7 +16,8 @@ where you might need that some network can access other in a different VRF.
 The scope of this document is to cover such cases in a dynamic way without the
 use of MPLS-LDP.
 
-General information about L3VPNs can be found in the :ref:`configuration/vrf/index:L3VPN VRFs` chapter.
+General information about L3VPNs can be found in the
+:ref:`configuration/vrf/index:L3VPN VRFs` chapter.
 
 ********
 Overview
@@ -70,7 +71,7 @@ community(ies) into that prefix.
 ********
 Topology
 ********
-.. image:: /_static/images/inter-vrf-routing-vrf-lite.png
+.. image:: /_static/images/inter-vrf-routing-vrf-lite.*
    :width: 70%
    :align: center
    :alt: Network Topology Diagram
@@ -467,7 +468,7 @@ Now we perform some end-to-end testing
 
 - From Management to Outside (fails as intended)
 
-
+.. stop_vyoslinter
 
 .. code-block:: none
 
@@ -515,6 +516,7 @@ Now we perform some end-to-end testing
    --- 2001:db8:2::1 ping statistics ---
    2 packets transmitted, 0 received, +2 errors, 100% packet loss, time 1002ms
 
+.. start_vyoslinter
 
 - LAN1 to Outside
 
@@ -772,6 +774,8 @@ route-map with an prefix-list.
 
 We create a prefix-list first and add all the routes we need to.
 
+.. stop_vyoslinter
+
 .. code-block:: none
 
    # set both ipv4 and ipv6 policies
@@ -794,6 +798,8 @@ We create a prefix-list first and add all the routes we need to.
    set policy prefix-list6 LAN2-Internet-v6 rule 3 prefix '2001:db8:0:3::/64'
    set policy prefix-list6 LAN2-Internet-v6 rule 4 action 'permit'
    set policy prefix-list6 LAN2-Internet-v6 rule 4 prefix '2001:db8:0:1::/64'
+
+.. start_vyoslinter
 
 Then add a route-map and reference to above prefix. Consider that the actions
 taken inside the prefix will MATCH the routes that will be affected by the

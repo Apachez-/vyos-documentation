@@ -89,7 +89,7 @@ Example
 * Router receives DHCP client requests on ``eth1`` and relays them to the
   server at 10.0.1.4 on ``eth2``.
 
-.. figure:: /_static/images/service_dhcp-relay01.png
+.. figure:: /_static/images/service_dhcp-relay01.*
    :scale: 80 %
    :alt: DHCP relay example
 
@@ -177,7 +177,7 @@ Example
 * Requests are forwarded through ``eth2`` as the `upstream interface`
 * External DHCPv6 server is at 2001:db8::4
 
-.. figure:: /_static/images/service_dhcpv6-relay01.png
+.. figure:: /_static/images/service_dhcpv6-relay01.*
    :scale: 80 %
    :alt: DHCPv6 relay example
 

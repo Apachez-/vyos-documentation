@@ -14,7 +14,7 @@ Example 1: Distributing load evenly
 
 The setup used in this example is shown in the following diagram:
 
-.. image:: /_static/images/Wan_load_balancing1.png
+.. image:: /_static/images/Wan_load_balancing1.*
    :width: 80%
    :align: center
    :alt: Network Topology Diagram
@@ -159,7 +159,7 @@ Example 5: Exclude traffic from load balancing
 In this example two LAN interfaces exist in different subnets instead
 of one like in the previous examples:
 
-.. image:: /_static/images/Wan_load_balancing_exclude1.png                      
+.. image:: /_static/images/Wan_load_balancing_exclude1.*                      
    :width: 80%                                                          
    :align: center                                                       
    :alt: Network Topology Diagram 

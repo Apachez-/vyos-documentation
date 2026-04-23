@@ -56,6 +56,8 @@ Configuration
 
     Protocol for which expect entries need to be synchronized.
 
+.. stop_vyoslinter
+
 .. cfgcmd:: set service conntrack-sync failover-mechanism vrrp sync-group <group>
 
     Failover mechanism to use for conntrack-sync.
@@ -64,7 +66,10 @@ Configuration
 
 .. cfgcmd:: set service conntrack-sync ignore-address <x.x.x.x>
 
-    IP addresses or networks for which local conntrack entries will not be synced
+    IP addresses or networks for which local conntrack entries will not
+    be synced
+
+.. start_vyoslinter
 
 .. cfgcmd:: set service conntrack-sync interface <name>
 
@@ -147,8 +152,9 @@ Operation
   .. note::
   
     If the table is empty and you have a warning message, it means
-    conntrack is not enabled. To enable conntrack, just create a NAT or a firewall
-    rule. :cfgcmd:`set firewall state-policy established action accept`
+    conntrack is not enabled. To enable conntrack, just create a NAT
+    or a firewall rule.
+    :cfgcmd:`set firewall state-policy established action accept`
 
 .. opcmd:: show conntrack-sync cache external
 
@@ -210,7 +216,7 @@ Example
 
 The next example is a simple configuration of conntrack-sync.
 
-.. figure:: /_static/images/service_conntrack_sync-schema.png
+.. figure:: /_static/images/service_conntrack_sync-schema.*
    :scale: 60 %
    :alt: Conntrack Sync Example
 

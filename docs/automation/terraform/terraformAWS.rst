@@ -10,7 +10,7 @@ on AWS and remove infrastructure when it's no longer needed.
 Additionally, you can use Ansible for provisioning.
 
 
-.. image:: /_static/images/aws.png
+.. image:: /_static/images/aws.*
    :width: 50%
    :align: center
    :alt: Network Topology Diagram
@@ -36,20 +36,20 @@ AWS
 
 2. Create a key pair_ and download your ``.pem`` key.
 
-.. image:: /_static/images/keypairs.png
+.. image:: /_static/images/keypairs.*
    :width: 50%
    :align: center
    :alt: Network Topology Diagram
 
 3. Create a security group_ for the new VyOS instance and open all traffic.
 
-.. image:: /_static/images/sg.png
+.. image:: /_static/images/sg.*
    :width: 50%
    :align: center
    :alt: Network Topology Diagram
 
 
-.. image:: /_static/images/traffic.png
+.. image:: /_static/images/traffic.*
    :width: 50%
    :align: center
    :alt: Network Topology Diagram

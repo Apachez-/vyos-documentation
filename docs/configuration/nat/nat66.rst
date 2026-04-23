@@ -127,7 +127,7 @@ Use the following topology to build a nat66 based isolated
 network between internal and external networks (dynamic prefix is 
 not supported):
 
-.. figure:: /_static/images/vyos_1_4_nat66_simple.png
+.. figure:: /_static/images/vyos_1_4_nat66_simple.*
    :alt: VyOS NAT66 Simple Configure
 
 R1:
@@ -158,7 +158,7 @@ Use the following topology to translate internal user local addresses
 (``fc::/7``) to DHCPv6-PD provided prefixes from an ISP connected to
 a VyOS HA pair.
 
-.. figure:: /_static/images/vyos_1_5_nat66_dhcpv6_wdummy.png
+.. figure:: /_static/images/vyos_1_5_nat66_dhcpv6_wdummy.*
    :alt: VyOS NAT66 DHCPv6 using a dummy interface
 
 Configure both routers (a and b) for DHCPv6-PD via dummy interface:

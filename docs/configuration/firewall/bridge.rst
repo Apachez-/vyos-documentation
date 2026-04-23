@@ -50,13 +50,13 @@ chain is **forward**, and its base command for filtering is ``set firewall
 bridge forward filter ...``, which happens in stage 4, highlighted with red
 color.
 
-.. figure:: /_static/images/firewall-bridge-forward.png
+.. figure:: /_static/images/firewall-bridge-forward.*
 
 For traffic destined to the router itself or that needs to be routed
 (assuming a layer3 bridge is configured), the base chain is **input**, and the
 base command is ``set firewall bridge input filter ...`` and the path is:
 
-.. figure:: /_static/images/firewall-bridge-input.png
+.. figure:: /_static/images/firewall-bridge-input.*
 
 If it's not dropped, then the packet is sent to **IP Layer**, and will be
 processed by the **IP Layer** firewall: IPv4 or IPv6 ruleset. Check once again
@@ -67,7 +67,7 @@ For traffic that originates from the bridge itself, the base chain is
 **output**, and the base command is ``set firewall bridge output filter
 ...``, and the path is:
 
-.. figure:: /_static/images/firewall-bridge-output.png
+.. figure:: /_static/images/firewall-bridge-output.*
 
 Custom bridge firewall chains can be created with the command ``set firewall
 bridge name <name> ...``. To use such a custom chain, a rule with action jump
@@ -557,6 +557,8 @@ And op-mode commands:
 
 Inspect logs:
 
+.. stop_vyoslinter
+
 .. code-block:: none
 
       vyos@BRI:~$ show log firewall bridge
@@ -567,3 +569,5 @@ Inspect logs:
       vyos@BRI:~$ show log firewall bridge forward filter
       Dec 05 14:42:22 kernel: [bri-FWD-filter-default-D]IN=eth2 OUT=eth1 MAC=33:33:00:00:00:16:50:00:00:06:00:00:86:dd SRC=0000:0000:0000:0000:0000:0000:0000:0000 DST=ff02:0000:0000:0000:0000:0000:0000:0016 LEN=96 TC=0 HOPLIMIT=1 FLOWLBL=0 PROTO=ICMPv6 TYPE=143 CODE=0
       Dec 05 14:42:22 kernel: [bri-FWD-filter-default-D]IN=eth2 OUT=eth1 MAC=33:33:00:00:00:16:50:00:00:06:00:00:86:dd SRC=0000:0000:0000:0000:0000:0000:0000:0000 DST=ff02:0000:0000:0000:0000:0000:0000:0016 LEN=96 TC=0 HOPLIMIT=1 FLOWLBL=0 PROTO=ICMPv6 TYPE=143 CODE=0
+
+.. start_vyoslinter

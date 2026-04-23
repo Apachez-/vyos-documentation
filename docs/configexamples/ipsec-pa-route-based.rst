@@ -17,7 +17,7 @@ include firewall configuration.
 Network Topology
 ================
 
-.. image:: /_static/images/ipsec-vyos-pa.png
+.. image:: /_static/images/ipsec-vyos-pa.*
    :align: center
    :alt: Network Topology Diagram
 
@@ -88,6 +88,8 @@ Configuration
 VyOS
 ----
 
+.. stop_vyoslinter
+
 .. code-block:: none
 
  set interfaces ethernet eth0 address '10.0.1.2/30'
@@ -131,42 +133,46 @@ VyOS
  set vpn ipsec site-to-site peer CISCO remote-address '10.0.2.2'
  set vpn ipsec site-to-site peer CISCO vti bind 'vti1'
 
+.. start_vyoslinter
+
 Palo Alto
 ---------
+
+.. stop_vyoslinter
 
 GUI Configuration:
  Network -> Network Profiles -> IKE Crypto
 
- .. image:: /_static/images/PA-IKE-group.png
+ .. image:: /_static/images/PA-IKE-group.*
    :align: center
 
  Network -> Network Profiles -> IKE Gateways
 
- .. image:: /_static/images/PA-IKE-GW-1.png
+ .. image:: /_static/images/PA-IKE-GW-1.*
    :align: center
 
- .. image:: /_static/images/PA-IKE-GW-2.png
+ .. image:: /_static/images/PA-IKE-GW-2.*
    :align: center
 
  Network -> Network Profiles -> IPSec Crypto
 
- .. image:: /_static/images/PA-ESP-group.png
+ .. image:: /_static/images/PA-ESP-group.*
    :align: center
 
  Network -> Interfaces
 
- .. image:: /_static/images/PA-tunnel-1.png
+ .. image:: /_static/images/PA-tunnel-1.*
    :align: center
 
- .. image:: /_static/images/PA-tunnel-2.png
+ .. image:: /_static/images/PA-tunnel-2.*
    :align: center
 
- .. image:: /_static/images/PA-tunnel-3.png
+ .. image:: /_static/images/PA-tunnel-3.*
    :align: center
 
  Network -> IPSec Tunnels
 
- .. image:: /_static/images/PA-IPsec-tunnel.png
+ .. image:: /_static/images/PA-IPsec-tunnel.*
    :align: center
 
 CLI configuration with OSPF:
@@ -225,6 +231,8 @@ CLI configuration with OSPF:
  set network virtual-router default protocol ospf router-id 1.1.1.1
  set network virtual-router default interface [ ethernet1/1 ethernet1/2 ethernet1/3 tunnel.1 ]
 
+.. start_vyoslinter
+
 
 Monitoring
 ==========
@@ -260,12 +268,16 @@ IPsec SAs:
 
 OSPF Neighbor Status:
 
+.. stop_vyoslinter
+
 .. code-block:: none
 
  vyos@vyos:~$ show ip ospf neighbor
 
  Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
  1.1.1.1           1 Full/-          23m56s            37.948s 10.100.100.2    vti1:10.100.100.1                    0     0     0
+
+.. start_vyoslinter
 
 
 Routing Table:
@@ -337,6 +349,8 @@ IPsec SAs:
 
 OSPF Neighbor Status:
 
+.. stop_vyoslinter
+
 .. code-block:: none
 
  admin@PA-VM> show routing protocol ospf neighbor
@@ -360,6 +374,8 @@ OSPF Neighbor Status:
    restart helper status:         not helping
    restart helper time remaining: 0
    restart helper exit reason:    none
+
+.. start_vyoslinter
 
 
 

@@ -53,7 +53,7 @@ Topology
 
 We use the following network topology in this example:
 
-.. image:: _include/topology.png
+.. image:: _include/topology.*
   :alt: L3VPN EVPN with VyOS topology image
 
 

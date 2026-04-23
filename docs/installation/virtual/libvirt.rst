@@ -123,28 +123,28 @@ Deploy from ISO
 
 2. Choose ``Local install media`` (ISO)
 
-.. figure:: /_static/images/virt-libvirt-01.png
+.. figure:: /_static/images/virt-libvirt-01.*
 
 3. Choose the path to the VyOS ISO image. Select any Debian-based operating
    system.
 
-.. figure:: /_static/images/virt-libvirt-02.png
+.. figure:: /_static/images/virt-libvirt-02.*
 
 4. Choose Memory and CPU
 
-.. figure:: /_static/images/virt-libvirt-03.png
+.. figure:: /_static/images/virt-libvirt-03.*
 
 5. Disk size
 
-.. figure:: /_static/images/virt-libvirt-04.png
+.. figure:: /_static/images/virt-libvirt-04.*
 
 6. Name of VM and network selection
 
-.. figure:: /_static/images/virt-libvirt-05.png
+.. figure:: /_static/images/virt-libvirt-05.*
 
 7. Then the system will be taken to the console.
 
-.. figure:: /_static/images/virt-libvirt-06.png
+.. figure:: /_static/images/virt-libvirt-06.*
 
 .. _libvirt:virt-manager_qcow2:
 
@@ -163,24 +163,24 @@ Download the predefined VyOS ``.qcow2`` image.
 
 2. Choose ``Import existing disk`` image
 
-.. figure:: /_static/images/virt-libvirt-qc-01.png
+.. figure:: /_static/images/virt-libvirt-qc-01.*
 
 3. Choose the path to the ``vyos_kvm.qcow2`` image that you downloaded.
    Select any Debian-based operating system.
 
-.. figure:: /_static/images/virt-libvirt-qc-02.png
+.. figure:: /_static/images/virt-libvirt-qc-02.*
 
 4. Choose Memory and CPU
 
-.. figure:: /_static/images/virt-libvirt-03.png
+.. figure:: /_static/images/virt-libvirt-03.*
 
 5. Name of VM and network selection
 
-.. figure:: /_static/images/virt-libvirt-05.png
+.. figure:: /_static/images/virt-libvirt-05.*
 
 6. Then the system will be taken to the console.
 
-.. figure:: /_static/images/virt-libvirt-qc-03.png
+.. figure:: /_static/images/virt-libvirt-qc-03.*
 
 
 

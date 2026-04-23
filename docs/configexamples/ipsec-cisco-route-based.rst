@@ -16,7 +16,7 @@ inside the tunnel.
 Network Topology
 ================
 
-.. image:: /_static/images/cisco-vpn-ipsec.png
+.. image:: /_static/images/cisco-vpn-ipsec.*
    :align: center
    :alt: Network Topology Diagram
 
@@ -89,6 +89,8 @@ Configuration
 VyOS
 ----
 
+.. stop_vyoslinter
+
 .. code-block:: none
 
  set interfaces ethernet eth0 address '10.0.1.2/30'
@@ -132,8 +134,12 @@ VyOS
  set vpn ipsec site-to-site peer CISCO remote-address '10.0.2.2'
  set vpn ipsec site-to-site peer CISCO vti bind 'vti1'
 
+.. start_vyoslinter
+
 Cisco
 -----
+
+.. stop_vyoslinter
 
 .. code-block:: none
 
@@ -196,6 +202,7 @@ Cisco
  !
  ip route 0.0.0.0 0.0.0.0 10.0.2.1
 
+.. start_vyoslinter
 
 
 Monitoring
@@ -230,12 +237,16 @@ IPsec SAs:
 
 OSPF Neighbor Status:
 
+.. stop_vyoslinter
+
 .. code-block:: none
 
  vyos@vyos:~$ show ip ospf neighbor
 
  Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
  1.1.1.1           1 Full/-          1h29m37s          39.317s 10.100.100.2    vti1:10.100.100.1                    0     0     0
+
+.. start_vyoslinter
 
 Routing Table:
 
@@ -267,6 +278,8 @@ Routing Table:
 
 Monitoring on Cisco side
 ------------------------
+
+.. stop_vyoslinter
 
 IKE SAs:
 
@@ -377,6 +390,8 @@ Routing Table:
        192.168.11.0/24 is variably subnetted, 2 subnets, 2 masks
  C        192.168.11.0/24 is directly connected, GigabitEthernet0/2
  L        192.168.11.1/32 is directly connected, GigabitEthernet0/2
+
+.. start_vyoslinter
 
 
 Checking Connectivity

@@ -32,7 +32,7 @@ There are two IPsec modes:
         another IP datagram, and an IPsec header (AH or ESP) is
         inserted between the outer and inner headers.
 
-.. figure:: /_static/images/ESP_AH.png
+.. figure:: /_static/images/ESP_AH.*
    :scale: 80 %
    :alt: AH and ESP in Transport Mode and Tunnel Mode
 
@@ -143,8 +143,9 @@ You can view the PPK column for information on if PPK is configured, and
 if it is in use. The output is in the format of ``<configured> / <in use>``. 
 The options for configured are none if not conifugred, opt if configured 
 but optional, and req is configured and required. The in use will show yes 
-Possible values of the ``configured`` field are ``none`` if not conifgured, ``opt`` if configured 
-but optional, and ``req`` is configured and required. The in use will show yes 
+Possible values of the ``configured`` field are ``none`` if not
+conifgured, ``opt`` if configured but optional, and ``req`` is
+configured and required. The in use will show yes
 
 
 
@@ -200,6 +201,8 @@ VyOS IKE group has the next options:
  * **aggressive** - Use Aggressive mode for Key Exchanges in the IKEv1
    protocol aggressive mode is much more insecure compared to Main mode.
 
+.. stop_vyoslinter
+
 .. cfgcmd:: set vpn ipsec ike-group <name> proposal <number> dh-group <dh-group number>
 
   Dh-group. Default value is **2**.
@@ -207,6 +210,8 @@ VyOS IKE group has the next options:
 .. cfgcmd:: set vpn ipsec ike-group <name> proposal <number> encryption <encryption>
 
   Encryption algorithm. Default value is **aes128**.
+
+.. start_vyoslinter
 
 .. cfgcmd:: set vpn ipsec ike-group <name> proposal <number> hash <hash>
 
@@ -232,9 +237,13 @@ DPD (Dead Peer Detection) Configuration
   * **restart** - Immediately tries to re-negotiate the CHILD_SA
     under a fresh IKE_SA.
 
+.. stop_vyoslinter
+
 .. cfgcmd:: set vpn ipsec ike-group <name> dead-peer-detection interval <interval>
 
   Keep-alive interval in seconds <2-86400> (default 30).
+
+.. start_vyoslinter
 
 .. cfgcmd:: set vpn ipsec ike-group <name> dead-peer-detection timeout <timeout>
 
@@ -292,9 +301,13 @@ VyOS ESP group has the next options:
  * **disable** - Disable PFS.
  * **<dh-group>** - Defines a Diffie-Hellman group for PFS.
 
+.. stop_vyoslinter
+
 .. cfgcmd:: set vpn ipsec esp-group <name> proposal <number> encryption <encryption>
 
   Encryption algorithm. Default value is **aes128**.
+
+.. start_vyoslinter
 
 .. cfgcmd:: set vpn ipsec esp-group <name> proposal <number> hash <hash>
 
@@ -351,7 +364,8 @@ Options
 IKEv2 Retransmission
 ====================
 
-If the peer does not respond on DPD packet, the router starts retransmission procedure.
+If the peer does not respond on DPD packet, the router starts the
+retransmission procedure.
 
 The following formula is used to calculate the timeout:
 

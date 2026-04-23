@@ -27,19 +27,19 @@ GCP
 
 1. Create an account with GCP and a new project.
 
-.. image:: /_static/images/project.png
+.. image:: /_static/images/project.*
    :width: 50%
    :align: center
    :alt: Network Topology Diagram
 
 2. Create a service account and download your key (a JSON file).
 
-.. image:: /_static/images/service.png
+.. image:: /_static/images/service.*
    :width: 50%
    :align: center
    :alt: Network Topology Diagram
 
-.. image:: /_static/images/key.png
+.. image:: /_static/images/key.*
    :width: 50%
    :align: center
    :alt: Network Topology Diagram
@@ -47,7 +47,7 @@ GCP
 The .JSON file downloads automatically after you create it and looks
 like the following:
 
-.. image:: /_static/images/json.png
+.. image:: /_static/images/json.*
    :width: 50%
    :align: center
    :alt: Network Topology Diagram

@@ -78,7 +78,8 @@ Tunnel information:
     * If Route based VPN is used
         * IP of the VTI interface is 10.0.0.1/30
 
-.. note:: We do not recommend using policy-based vpn and route-based vpn configurations to the same peer.
+.. note:: We do not recommend using policy-based vpn and route-based
+   vpn configurations to the same peer.
 
 **1. Configure ike-group (IKE Phase 1)**
 
@@ -108,7 +109,8 @@ Tunnel information:
 
     set vpn ipsec interface eth0
 
-**4. Configure PSK keys and authentication ids for this key if authentication type is PSK**
+**4. Configure PSK keys and authentication ids for this key if
+authentication type is PSK**
 
 .. code-block:: none
 
@@ -146,14 +148,16 @@ To set base64 secret encode plaintext password to base64 and set secret-type
 
 **6. Depends to vpn type (route-based vpn or policy-based vpn).**
 
-   **6.1 For Policy-based VPN configure SAs using tunnel command specifying remote and local networks.**
+   **6.1 For Policy-based VPN configure SAs using tunnel command
+   specifying remote and local networks.**
 
     .. code-block:: none
 
         set vpn ipsec site-to-site peer PEER1 tunnel 1 local prefix '192.168.10.0/24'
         set vpn ipsec site-to-site peer PEER1 tunnel 1 remote prefix '192.168.50.0/24'
 
-   **6.2 For Route-based VPN create VTI interface, set IP address to this interface and bind this interface to the vpn peer.**
+   **6.2 For Route-based VPN create VTI interface, set IP address to
+   this interface and bind this interface to the vpn peer.**
 
     .. code-block:: none
 
@@ -184,7 +188,7 @@ The result of wrong value selection can be unstable work of the VPN.
 Below flow-chart could be a quick reference for the close-action
 combination depending on how the peer is configured.
 
-.. figure:: /_static/images/IPSec_close_action_settings.png
+.. figure:: /_static/images/IPSec_close_action_settings.*
 
 Similar combinations are applicable for the dead-peer-detection.
 
@@ -243,6 +247,8 @@ Peer Authentication Commands
   address. Useful in case if the remote peer is behind NAT
   or if ``mode x509`` is used.
 
+.. stop_vyoslinter
+
 .. cfgcmd:: set vpn ipsec site-to-site peer <name> authentication rsa local-key <key>
 
   Name of PKI key-pair with local private key.
@@ -269,6 +275,8 @@ Peer Authentication Commands
 
   Name of certificate in PKI configuration, which will be used
   for authenticating local router on remote peer.
+
+.. start_vyoslinter
 
 .. cfgcmd:: set vpn ipsec authentication x509 passphrase <passphrase>
 
@@ -370,6 +378,8 @@ Policy-Based CHILD SAs Configuration Commands
 
 Every configured tunnel under peer configuration is a new CHILD SA.
 
+.. stop_vyoslinter
+
 .. cfgcmd:: set vpn ipsec site-to-site peer <name> tunnel <number> disable
 
   Disable this tunnel.
@@ -406,6 +416,8 @@ Every configured tunnel under peer configuration is a new CHILD SA.
   Remote port number. Have effect only when used together with
   ``prefix``.
 
+.. start_vyoslinter
+
 Route-Based CHILD SAs Configuration Commands
 """""""""""""""""""""""""""""""""""""""""""""
 
@@ -435,6 +447,8 @@ for each remote network.
 Traffic-selectors parameters for traffic that should pass via vti
 interface.
 
+.. stop_vyoslinter
+
 .. cfgcmd:: set vpn ipsec site-to-site peer <name> vti traffic-selector local prefix <network>
 
   Local prefix for interesting traffic.
@@ -442,6 +456,8 @@ interface.
 .. cfgcmd:: set vpn ipsec site-to-site peer <name> vti traffic-selector remote prefix <network>
 
   Remote prefix for interesting traffic.
+
+.. start_vyoslinter
 
 IPsec Op-mode Commands
 ======================

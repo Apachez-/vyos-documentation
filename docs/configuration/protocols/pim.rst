@@ -70,12 +70,17 @@ PIM-SM - PIM Sparse Mode
    This command is only useful at scale when you can possibly have a large
    number of PIM control packets flowing.
 
+.. stop_vyoslinter
+
 .. cfgcmd:: set protocols pim register-accept-list <prefix-list>
 
-   When PIM receives a register packet the source of the packet will be compared
-   to the prefix-list specified, and if a permit is received normal processing
-   continues. If a deny is returned for the source address of the register packet
-   a register stop message is sent to the source.
+   When PIM receives a register packet the source of the packet will be
+   compared to the prefix-list specified, and if a permit is received
+   normal processing continues. If a deny is returned for the source
+   address of the register packet a register stop message is sent to
+   the source.
+
+.. start_vyoslinter
 
 .. cfgcmd:: set protocols pim register-suppress-time <n>
 
@@ -84,9 +89,10 @@ PIM-SM - PIM Sparse Mode
 
 .. cfgcmd:: set protocols pim rp <address> group <group>
 
-   In order to use PIM, it is necessary to configure a :abbr:`RP (Rendezvous Point)`
-   for join messages to be sent to. Currently the only methodology to do this is
-   via static rendezvous point commands.
+   In order to use PIM, it is necessary to configure a
+   :abbr:`RP (Rendezvous Point)` for join messages to be sent to.
+   Currently the only methodology to do this is via static rendezvous
+   point commands.
 
    All routers in the PIM network must agree on these values.
 
@@ -115,14 +121,19 @@ PIM-SM - PIM Sparse Mode
    nexthops in it's decision for :abbr:`RPF (Reverse Path Forwarding)` lookup
    if this option is not set (default).
 
+.. stop_vyoslinter
+
 .. cfgcmd:: set protocols pim spt-switchover infinity-and-beyond [prefix-list <list>]
 
-   On the last hop router if it is desired to not switch over to the SPT tree
-   configure this command.
+   On the last hop router if it is desired to not switch over to the
+   SPT tree configure this command.
 
-   Optional parameter prefix-list can be use to control which groups to switch or
-   not switch. If a group is PERMIT as per the prefix-list, then the SPT switchover
-   does not happen for it and if it is DENY, then the SPT switchover happens.
+   Optional parameter prefix-list can be use to control which groups
+   to switch or not switch. If a group is PERMIT as per the
+   prefix-list, then the SPT switchover does not happen for it and if
+   it is DENY, then the SPT switchover happens.
+
+.. start_vyoslinter
 
 .. cfgcmd:: set protocols pim ssm prefix-list <list>
 
@@ -206,6 +217,8 @@ Interface specific commands
    not returned in the specified time, it will be assumed the (S,G) or
    (\*,G) state :rfc:`7761#section-4.1` has timed out.
 
+.. stop_vyoslinter
+
 .. cfgcmd:: set protocols pim interface <interface> igmp version <version-number>
 
    Use this command to define in the selected interface whether you
@@ -213,12 +226,14 @@ Interface specific commands
 
    The default value is 3.
 
+.. start_vyoslinter
+
 Example
 -------
 
 In the following example we can see a basic multicast setup:
 
-.. image:: /_static/images/multicast-basic.png
+.. image:: /_static/images/multicast-basic.*
    :width: 90%
    :align: center
    :alt: Network Topology Diagram

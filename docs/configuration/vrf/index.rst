@@ -20,8 +20,8 @@ then enslaved to a VRF device.
 
 .. cfgcmd:: set vrf name <name> table <id>
 
-   Create a new VRF instance with `<name>` and `<id>`. The name is used when placing
-   individual interfaces into the VRF.
+   Create a new VRF instance with `<name>` and `<id>`. The name is
+   used when placing individual interfaces into the VRF.
 
    .. note:: A routing table ID can not be modified once it is assigned. It can
       only be changed by deleting and re-adding the VRF instance.
@@ -66,9 +66,10 @@ can be used to filter which routes zebra will install in the kernel.
 Nexthop Tracking
 ----------------
 
-Nexthop tracking resolve nexthops via the default route by default. This is enabled
-by default for a traditional profile of FRR which we use. It and can be disabled if
-you do not want to e.g. allow BGP to peer across the default route.
+Nexthop tracking resolve nexthops via the default route by default.
+This is enabled by default for a traditional profile of FRR which we
+use. It and can be disabled if you do not want to e.g. allow BGP to
+peer across the default route.
 
 .. cfgcmd:: set vrf name <name> ip nht no-resolve-via-default
 
@@ -230,8 +231,8 @@ For VRF maintenance the following operational commands are in place.
    the round-trip time of these packets is used in calculating the minimum/
    average/maximum round-trip time numbers.
 
-   .. note:: Ping command can be interrupted at any given time using ``<Ctrl>+c``.
-     A brief statistic is shown afterwards.
+   .. note:: Ping command can be interrupted at any given time using
+     ``<Ctrl>+c``. A brief statistic is shown afterwards.
 
    .. code-block:: none
 
@@ -272,7 +273,7 @@ VRF route leaking
 
 The following example topology was built using EVE-NG.
 
-.. figure:: /_static/images/vrf-example-topology-01.png
+.. figure:: /_static/images/vrf-example-topology-01.*
    :alt: VRF topology example
 
    VRF route leaking
@@ -535,9 +536,9 @@ address-family.
 .. cfgcmd:: set vrf name <name> protocols bgp interface <interface> mpls
             forwarding
 
-   It is possible to permit BGP install VPN prefixes without transport labels.
-   This configuration will install VPN prefixes originated from an e-bgp session,
-   and with the next-hop directly connected.
+   It is possible to permit BGP install VPN prefixes without transport
+   labels. This configuration will install VPN prefixes originated
+   from an e-bgp session, and with the next-hop directly connected.
 
 .. _l3vpn-vrf example operation:
 

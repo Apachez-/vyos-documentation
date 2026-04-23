@@ -62,20 +62,23 @@ Bond modes
       :widths: 20 80
 
       * - **Description:**
-        - IEEE 802.3ad Dynamic Link Aggregation. Groups only member interfaces with 
-          the same speed (e.g., 1 Gbps) and duplex settings. Member interfaces with 
-          different speed and duplex settings are not included in the active bond.
+        - IEEE 802.3ad Dynamic Link Aggregation. Groups only member
+          interfaces with the same speed (e.g., 1 Gbps) and duplex
+          settings. Member interfaces with different speed and duplex
+          settings are not included in the active bond.
 
-          Provides load balancing and fault tolerance. Uses the :abbr:`LACP (Link 
-          Aggregation Control Protocol)` to negotiate the bond with the switch.  
+          Provides load balancing and fault tolerance. Uses the
+          :abbr:`LACP (Link Aggregation Control Protocol)` to
+          negotiate the bond with the switch.
       * - **Traffic distribution:**
-        - Traffic is distributed according to the **transmit hash policy** 
-          (default: XOR). 
+        - Traffic is distributed according to the **transmit hash
+          policy** (default: XOR).
 
-          The bonding driver applies an XOR operation to specific packet header fields, 
-          generating a hash value that maps to a particular member interface. This 
-          ensures the same network flow is consistently transmitted over the same member 
-          interface. 
+          The bonding driver applies an XOR operation to specific
+          packet header fields, generating a hash value that maps to
+          a particular member interface. This ensures the same network
+          flow is consistently transmitted over the same member
+          interface.
         
           The transmit hash policy is configured via the ``hash-policy`` option.
       * - **Failover:**
@@ -92,15 +95,16 @@ Bond modes
       :widths: 20 80
  
       * - **Description:**
-        - Provides fault tolerance. Only one member interface is active at a time. 
-          Other member interfaces remain in a standby mode.  
-      * - **Traffic distribution:**         
-        - All traffic (incoming and outgoing) is routed via one active member interface.
-      * - **Failover:**         
-        - If the designated member interface fails, all traffic is routed to
-          another member interface. The bonding driver sends a Gratuitous ARP 
-          to update the peer's MAC address table, linking the bond's MAC address 
-          to another physical port.
+        - Provides fault tolerance. Only one member interface is active
+          at a time. Other member interfaces remain in a standby mode.
+      * - **Traffic distribution:**
+        - All traffic (incoming and outgoing) is routed via one active
+          member interface.
+      * - **Failover:**
+        - If the designated member interface fails, all traffic is
+          routed to another member interface. The bonding driver sends
+          a Gratuitous ARP to update the peer's MAC address table,
+          linking the bond's MAC address to another physical port.
 
    * ``broadcast``
 
@@ -109,11 +113,12 @@ Bond modes
  
       * - **Description:**
         - Provides maximum fault tolerance by duplicating traffic.
-      * - **Traffic distribution:**         
-        - Every packet is duplicated and transmitted on **all** member interfaces.
-      * - **Failover:**         
-        - Traffic flow is not interrupted as long as at least one member interface 
-          remains active.
+      * - **Traffic distribution:**
+        - Every packet is duplicated and transmitted on **all** member
+          interfaces.
+      * - **Failover:**
+        - Traffic flow is not interrupted as long as at least one
+          member interface remains active.
 
    * ``round-robin``   
 
@@ -122,12 +127,13 @@ Bond modes
  
       * - **Description:**
         - Provides load balancing and fault tolerance.
-      * - **Traffic distribution:**         
-        - Packets are transmitted in sequential order across the member interfaces 
-          (e.g., packet 1 > interface A, packet 2 > interface B, etc.).
-      * - **Failover:**         
-        - If a member interface fails, the sequence skips the failed interface and 
-          continues with the remaining active members.
+      * - **Traffic distribution:**
+        - Packets are transmitted in sequential order across the member
+          interfaces (e.g., packet 1 > interface A, packet 2 >
+          interface B, etc.).
+      * - **Failover:**
+        - If a member interface fails, the sequence skips the failed
+          interface and continues with the remaining active members.
 
    * ``transmit-load-balance``   
 
@@ -136,14 +142,15 @@ Bond modes
  
       * - **Description:**
         - Provides adaptive transmit load balancing and fault tolerance.
-      * - **Traffic distribution:**         
-        - **Outgoing:** Distributed across all active member interfaces based on 
-          the current load.
+      * - **Traffic distribution:**
+        - **Outgoing:** Distributed across all active member interfaces
+          based on the current load.
 
-          **Incoming:** Received by a designated member interface (active receiver).
-      * - **Failover:**         
-        - If the active receiver fails, another member interface takes over as the new 
-          active receiver.
+          **Incoming:** Received by a designated member interface
+          (active receiver).
+      * - **Failover:**
+        - If the active receiver fails, another member interface takes
+          over as the new active receiver.
 
    * ``adaptive-load-balance``
 
@@ -151,75 +158,88 @@ Bond modes
       :widths: 20 80
 
       * - **Description:**
-        - Provides adaptive transmit load balancing identical to 
-          ``transmit-load-balance``, receive load balancing for IPv4 traffic, and fault 
-          tolerance for both incoming and outgoing traffic.
+        - Provides adaptive transmit load balancing identical to
+          ``transmit-load-balance``, receive load balancing for IPv4
+          traffic, and fault tolerance for both incoming and outgoing
+          traffic.
       * - **Traffic distribution:**
         - **Outgoing:** Identical to ``transmit-load-balance``.
 
-          **Incoming:** Distributed based on ARP manipulation. For both local and remote
-          connections, the bonding driver intercepts ARP traffic and changes the source
-          MAC address to the MAC address of the least loaded member interface. 
+          **Incoming:** Distributed based on ARP manipulation. For
+          both local and remote connections, the bonding driver
+          intercepts ARP traffic and changes the source MAC address
+          to the MAC address of the least loaded member interface.
 
-          All traffic from that peer is then routed to the chosen member interface.
+          All traffic from that peer is then routed to the chosen
+          member interface.
       * - **Failover:**
-        - If a member interface's state changes (fails, recovers, is added, or excluded),
-          the traffic is redistributed among all active member interfaces.
+        - If a member interface's state changes (fails, recovers, is
+          added, or excluded), the traffic is redistributed among all
+          active member interfaces.
 
-   * ``xor-hash``: Provides load balancing and fault tolerance based on a hash formula. 
-     Distributes traffic and handles failover identically to ``802.3ad``, but operates 
-     without the :abbr:`LACP (Link Aggregation Control Protocol)`.
+   * ``xor-hash``: Provides load balancing and fault tolerance
+     based on a hash formula. Distributes traffic and handles
+     failover identically to ``802.3ad``, but operates without
+     the :abbr:`LACP (Link Aggregation Control Protocol)`.
 
 .. cfgcmd:: set interfaces bonding <interface> min-links <0-16>
 
-   **Configure how many member interfaces must be active (in the link-up state) to 
-   mark the bonding interface UP (carrier asserted).**
+   **Configure how many member interfaces must be active (in the
+   link-up state) to mark the bonding interface UP (carrier
+   asserted).**
 
-   This command applies only when the bonding interface is configured in 802.3ad 
-   mode and functions like the Cisco EtherChannel min-links feature. It ensures 
-   that a bonding interface is marked UP (carrier asserted) only when a specified 
-   number of member interfaces are active (in the link-up state). This helps 
-   guarantee a minimum level of bandwidth for higher-level services (such as 
-   clustering) relying on the bonding interface. 
+   This command applies only when the bonding interface is configured
+   in 802.3ad mode and functions like the Cisco EtherChannel min-links
+   feature. It ensures that a bonding interface is marked UP (carrier
+   asserted) only when a specified number of member interfaces are
+   active (in the link-up state). This helps guarantee a minimum level
+   of bandwidth for higher-level services (such as clustering) relying
+   on the bonding interface.
 
-   The default value is 0. This marks the bonding interface UP (carrier asserted) 
-   whenever an active LACP aggregator exists, regardless of the number of member 
-   interfaces in that aggregator. 
+   The default value is 0. This marks the bonding interface UP
+   (carrier asserted) whenever an active LACP aggregator exists,
+   regardless of the number of member interfaces in that aggregator.
 
-   .. note:: In 802.3ad mode, a bond cannot be active without at least one active 
-      member interface. Therefore, setting min-links to 0 or 1 has the same result: 
-      the bonding interface is marked UP (carrier asserted).
+   .. note:: In 802.3ad mode, a bond cannot be active without at
+      least one active member interface. Therefore, setting min-links
+      to 0 or 1 has the same result: the bonding interface is marked
+      UP (carrier asserted).
 
 .. cfgcmd:: set interfaces bonding <interface> lacp-rate <slow|fast>
 
-   **Configure the rate at which the bonding interface requests its link 
-   partner to send** :abbr:`LACPDUs (Link Aggregation Control Protocol Data 
-   Units)` **in 802.3ad mode.**
+   **Configure the rate at which the bonding interface requests its
+   link partner to send**
+   :abbr:`LACPDUs (Link Aggregation Control Protocol Data Units)`
+   **in 802.3ad mode.**
 
-   This command applies only when the bonding interface is configured in 
-   802.3ad mode.
+   This command applies only when the bonding interface is configured
+   in 802.3ad mode.
 
    The following options are available:
 
-   * **slow (default):** Requests the link partner to transmit LACPDUs every 30 seconds.
+   * **slow (default):** Requests the link partner to transmit
+     LACPDUs every 30 seconds.
 
-   * **fast:** Requests the link partner to transmit LACPDUs every 1 second. 
+   * **fast:** Requests the link partner to transmit LACPDUs every
+     1 second.
 
 
 .. cfgcmd:: set interfaces bonding <interface> system-mac <mac address>
 
    **Configure a specific MAC address for the bonding interface.**
 
-   This sets the 802.3ad system MAC address, which is used for :abbr:`LACPDU (Link 
-   Aggregation Control Protocol Data Unit)` exchanges with the link partner. 
-   You can assign a fixed MAC address or generate a random one for these 
-   :abbr:`LACPDU (Link Aggregation Control Protocol Data Unit)` exchanges. 
+   This sets the 802.3ad system MAC address, which is used for
+   :abbr:`LACPDU (Link Aggregation Control Protocol Data Unit)`
+   exchanges with the link partner. You can assign a fixed MAC address
+   or generate a random one for these
+   :abbr:`LACPDU (Link Aggregation Control Protocol Data Unit)`
+   exchanges.
 
 
 .. cfgcmd:: set interfaces bonding <interface> hash-policy <policy>
 
-   **Configure which transmit hash policy to use for distributing traffic across 
-   member interfaces.**
+   **Configure which transmit hash policy to use for distributing
+   traffic across member interfaces.**
 
    The following policies are available:
 
@@ -229,10 +249,12 @@ Bond modes
         :widths: 20 80
 
         * - **Description:**
-          - Routes all traffic destined for a specific network peer through the same 
-            member interface. The policy is 802.3ad-compliant.
+          - Routes all traffic destined for a specific network peer
+            through the same member interface. The policy is
+            802.3ad-compliant.
         * - **Hash inputs:**
-          - Source MAC address, destination MAC address, and Ethernet packet type ID. 
+          - Source MAC address, destination MAC address, and Ethernet
+            packet type ID.
         * - **Formula:**
           - .. code-block:: none
 
@@ -245,13 +267,16 @@ Bond modes
         :widths: 20 80
 
         * - **Description:**
-          - Similar to ``layer2``, routes all traffic destined for a specific network 
-            peer through the same member interface and is IEEE 802.3ad-compliant. Uses 
-            both Layer 2 and Layer 3 information to provide a more balanced traffic distribution.
+          - Similar to ``layer2``, routes all traffic destined for a
+            specific network peer through the same member interface
+            and is IEEE 802.3ad-compliant. Uses both Layer 2 and
+            Layer 3 information to provide a more balanced traffic
+            distribution.
         * - **Hash inputs:**
-          - * Source MAC address, destination MAC address, and Ethernet packet type ID.
-            * Source IP address, destination IP address. IPv6 addresses are first hashed 
-              using ``IPv6_addr_hash``. 
+          - * Source MAC address, destination MAC address, and
+              Ethernet packet type ID.
+            * Source IP address, destination IP address. IPv6
+              addresses are first hashed using ``IPv6_addr_hash``.
         * - **Formula:**
           - .. code-block:: none
 
@@ -269,18 +294,21 @@ Bond modes
         :widths: 20 80
 
         * - **Description:**
-          - Routes different connections (flows) destined for a specific network peer 
-            through multiple member interfaces, but ensures each individual flow is 
-            routed through only one member interface.
+          - Routes different connections (flows) destined for a
+            specific network peer through multiple member interfaces,
+            but ensures each individual flow is routed through only
+            one member interface.
 
-            .. note:: This policy is not fully 802.3ad-compliant. When a single TCP 
-               or UDP flow contains both fragmented and unfragmented packets, the 
-               algorithm may distribute them across different member interfaces. This 
-               may result in out-of-order packet delivery, violating the 802.3ad standard.
+            .. note:: This policy is not fully 802.3ad-compliant.
+               When a single TCP or UDP flow contains both fragmented
+               and unfragmented packets, the algorithm may distribute
+               them across different member interfaces. This may
+               result in out-of-order packet delivery, violating the
+               802.3ad standard.
         * - **Hash inputs:**
           - * Source port, destination port (if available).
-            * Source IP address, destination IP address. IPv6 addresses are first hashed 
-              using ``IPv6_addr_hash``. 
+            * Source IP address, destination IP address. IPv6
+              addresses are first hashed using ``IPv6_addr_hash``.
         * - **Formula:**
           - .. code-block:: none
 
@@ -290,8 +318,9 @@ Bond modes
                hash = hash XOR (hash RSHIFT 8)
                member interface number = hash modulo member interface count
 
-            For fragmented TCP or UDP packets and all other IPv4 and IPv6 traffic, the 
-            source and destination port information is omitted.
+            For fragmented TCP or UDP packets and all other IPv4 and
+            IPv6 traffic, the source and destination port information
+            is omitted.
 
             For non-IP traffic, the formula is the same as for ``layer2``.
  
@@ -299,29 +328,33 @@ Bond modes
 
    **Configure the primary member interface in the bond.**
 
-   The primary member interface remains active as long as it is operational; 
-   alternative member interfaces are used only if it fails. 
+   The primary member interface remains active as long as it is
+   operational; alternative member interfaces are used only if it
+   fails.
 
-   Use this configuration when a specific member interface is preferred, 
-   such as one with higher throughput.
+   Use this configuration when a specific member interface is
+   preferred, such as one with higher throughput.
 
-   This command applies only to ``active-backup``, ``transmit-load-balance``, and 
-   ``adaptive-load-balance`` modes.
+   This command applies only to ``active-backup``,
+   ``transmit-load-balance``, and ``adaptive-load-balance`` modes.
 
 .. cfgcmd:: set interfaces bonding <interface> arp-monitor interval <time>
 
-   **Configure the ARP monitoring interval, in seconds, for the bonding interface.**
+   **Configure the ARP monitoring interval, in seconds, for the
+   bonding interface.**
 
-   ARP monitoring periodically assesses the health of each member interface by 
-   checking whether it has recently sent or received traffic (this criterion 
-   varies depending on the bonding mode and the member interface’s state). ARP 
-   probes are sent to the IP addresses specified with the arp-monitor target option.
+   ARP monitoring periodically assesses the health of each member
+   interface by checking whether it has recently sent or received
+   traffic (this criterion varies depending on the bonding mode and
+   the member interface’s state). ARP probes are sent to the IP
+   addresses specified with the arp-monitor target option.
 
-   When ARP monitoring is used with EtherChannel-compatible modes (such as 
-   ``round-robin`` or ``xor-hash``), the switch should be configured to distribute 
-   traffic across all member interfaces. If the switch distributes traffic using 
-   an XOR-based policy, all ARP replies will be received on one member interface, 
-   causing other member interfaces to be incorrectly marked as failed. 
+   When ARP monitoring is used with EtherChannel-compatible modes
+   (such as ``round-robin`` or ``xor-hash``), the switch should be
+   configured to distribute traffic across all member interfaces. If
+   the switch distributes traffic using an XOR-based policy, all ARP
+   replies will be received on one member interface, causing other
+   member interfaces to be incorrectly marked as failed.
 
    Setting this value to 0 disables ARP monitoring.
 
@@ -331,13 +364,13 @@ Bond modes
 
    **Configure the IP addresses for ARP monitoring requests.**
 
-   The bonding driver sends ARP requests to these IP addresses to check the 
-   state of member interfaces.
+   The bonding driver sends ARP requests to these IP addresses to
+   check the state of member interfaces.
 
-   To enable ARP monitoring, configure at least one IP address (up to 16 per 
-   bonding interface). 
+   To enable ARP monitoring, configure at least one IP address (up to
+   16 per bonding interface).
 
-   By default, no IP addresses are configured. 
+   By default, no IP addresses are configured.
 
 :abbr:`VLAN (Virtual Local Area Network)`
 =========================================
@@ -381,40 +414,46 @@ discriminator, or an Ethernet Segment Identifier Name (ESINAME).
 The following two commands generate a 10-byte Type-3 ESI by combining the 
 system MAC and local discriminator: 
 
+.. stop_vyoslinter
+
 .. cfgcmd:: set interfaces bonding <interface> evpn es-id <1-16777215|10-byte ID>
 .. cfgcmd:: set interfaces bonding <interface> evpn es-sys-mac <xx:xx:xx:xx:xx:xx>
 
-  Alternatively, assign an ESINAME directly as a 10-byte Type-0 ESI using the 
-  following format: 00:AA:BB:CC:DD:EE:FF:GG:HH:II.
+  Alternatively, assign an ESINAME directly as a 10-byte Type-0 ESI
+  using the following format: 00:AA:BB:CC:DD:EE:FF:GG:HH:II.
 
   **BGP-EVPN route usage**
 
-  EVPN-MH uses BGP-EVPN route types 1 and 2 for ES discovery and MAC-IP 
-  synchronization:
+  EVPN-MH uses BGP-EVPN route types 1 and 2 for ES discovery and
+  MAC-IP synchronization:
 
-  * **Type 1 (EAD-per-ES and EAD-per-EVI)** routes advertise the locally 
-    attached ESs and discover remote ESs in the network. 
-  * **Type 2 (MAC-IP advertisement)** routes are advertised with a 
+  * **Type 1 (EAD-per-ES and EAD-per-EVI)** routes advertise the
+    locally attached ESs and discover remote ESs in the network.
+  * **Type 2 (MAC-IP advertisement)** routes are advertised with a
     destination ESI, enabling MAC-IP synchronization between ES peers.
+
+.. stop_vyoslinter
 
 .. cfgcmd:: set interfaces bonding <interface> evpn es-df-pref <1-65535>
 
-  **Configure the** :abbr:`DF (Designated Forwarder)` **preference (1-65535) for 
-  the interface. A higher value indicates a higher preference to become the** 
-  :abbr:`DF (Designated Forwarder)`. **The** :abbr:`DF (Designated Forwarder)` 
+  **Configure the** :abbr:`DF (Designated Forwarder)` **preference (1-65535) for
+  the interface. A higher value indicates a higher preference to become the**
+  :abbr:`DF (Designated Forwarder)`. **The** :abbr:`DF (Designated Forwarder)`
   **preference is configured per-ES.**
 
-  The DF election process determines which interface in a specific ES forwards 
-  :abbr:`BUM (Broadcast, Unknown Unicast, and Multicast)` traffic from the EVPN 
-  overlay to the connected CE device. EVPN Type-4 (Ethernet Segment) routes are 
-  used to elect the DF, implementing the preference-based election method defined 
+  The DF election process determines which interface in a specific ES forwards
+  :abbr:`BUM (Broadcast, Unknown Unicast, and Multicast)` traffic from the EVPN
+  overlay to the connected CE device. EVPN Type-4 (Ethernet Segment) routes are
+  used to elect the DF, implementing the preference-based election method defined
   in RFC 9785.
 
-  Interfaces not elected as the DF drop any BUM traffic from the EVPN overlay 
-  using non-DF filters. Similarly, traffic received from ES peers via the EVPN 
-  overlay is blocked from forwarding to the CE device to maintain split-horizon 
+  Interfaces not elected as the DF drop any BUM traffic from the EVPN overlay
+  using non-DF filters. Similarly, traffic received from ES peers via the EVPN
+  overlay is blocked from forwarding to the CE device to maintain split-horizon
   filtering with local bias.
-  
+
+.. start_vyoslinter
+
 .. cmdinclude:: /_include/interface-evpn-uplink.txt
    :var0: bonding
    :var1: bond0
@@ -442,13 +481,14 @@ subinterface.
   set interfaces bonding bond0 member interface eth1
   set interfaces bonding bond0 member interface eth2
 
-.. note:: If you are running this configuration in a virtual environment like 
-   EVE-NG, ensure the e1000 driver is chosen for your VyOS NIC. The default 
-   drivers, such as ``virtio-net-pci`` or ``vmxnet3``, are incompatible with 
-   this configuration. Specifically, ICMP messages will not be processed correctly.
+.. note:: If you are running this configuration in a virtual environment like
+   EVE-NG, ensure the e1000 driver is chosen for your VyOS NIC. The default
+   drivers, such as ``virtio-net-pci`` or ``vmxnet3``, are incompatible with
+   this configuration. Specifically, ICMP messages will not be processed
+   correctly.
 
-   To check your NIC driver, use the following command: :opcmd:`show interfaces ethernet
-   eth0 physical | grep -i driver`
+   To check your NIC driver, use the following command:
+   :opcmd:`show interfaces ethernet eth0 physical | grep -i driver`
 
 Cisco Catalyst configuration
 ============================
@@ -486,8 +526,8 @@ such as allowed VLAN interfaces and STP, is applied here.
 Juniper EX Switch configuration
 ===============================
 
-Configure a Juniper EX Series switch to integrate with a two-member VyOS bonding 
-interface.
+Configure a Juniper EX Series switch to integrate with a two-member VyOS
+bonding interface.
 
 .. code-block:: none
 
@@ -536,7 +576,7 @@ between the two devices.
 
 Let's assume the following topology:
 
-.. figure:: /_static/images/vyos_arista_bond_lacp.png
+.. figure:: /_static/images/vyos_arista_bond_lacp.*
    :alt: VyOS Arista EOS setup
 
 **R1**

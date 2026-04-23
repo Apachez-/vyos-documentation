@@ -53,7 +53,7 @@ For transit traffic, which is received by the router and forwarded, the base
 chain is **forward**. The following is a simplified packet flow diagram for
 transit traffic:
 
-.. figure:: /_static/images/firewall-fwd-packet-flow.png
+.. figure:: /_static/images/firewall-fwd-packet-flow.*
 
 The base firewall chain for configuring filtering rules for transit traffic is
 ``set firewall ipv4 forward filter ...``, which occurs in stage 5, highlighted
@@ -64,7 +64,7 @@ the router originates, the base chain is **output**. A simplified packet flow
 diagram is shown next, which shows the path for traffic destined to the router
 itself and traffic the router generates (starting from circle number 6):
 
-.. figure:: /_static/images/firewall-input-packet-flow.png
+.. figure:: /_static/images/firewall-input-packet-flow.*
 
 The base chain for traffic towards the router is
 ``set firewall ipv4 input filter ...``
